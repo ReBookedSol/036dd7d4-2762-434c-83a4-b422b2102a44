@@ -1,19 +1,20 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { 
-  Calculator, 
-  Atom, 
-  Languages, 
-  BookText, 
-  Globe, 
-  Clock, 
-  Palette, 
-  Music, 
-  Monitor, 
-  Microscope, 
+import {
+  Calculator,
+  Atom,
+  Languages,
+  BookText,
+  Globe,
+  Clock,
+  Palette,
+  Music,
+  Monitor,
+  Microscope,
   TrendingUp,
   ArrowRight
 } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const subjects = [
   {

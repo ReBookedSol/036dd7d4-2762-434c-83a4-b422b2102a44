@@ -84,7 +84,7 @@ export const Footer = () => {
         </div>
 
         {/* Bottom Bar */}
-        <div className="border-t border-border mt-8 pt-8 flex flex-col md:flex-row justify-between items-center">
+        <div className="border-t border-background/20 mt-8 pt-8 flex flex-col md:flex-row justify-between items-center">
           <p className="text-sm text-muted-foreground">
             © {new Date().getFullYear()} ReBooked Genius. All rights reserved.
           </p>

@@ -143,9 +143,11 @@ export const SubjectsSection = () => {
         </div>
 
         <div className="text-center mt-12">
-          <Button variant="outline" size="lg">
-            View All Subjects
-          </Button>
+          <Link to="/subjects">
+            <Button variant="outline" size="lg">
+              View All Subjects
+            </Button>
+          </Link>
         </div>
       </div>
     </section>

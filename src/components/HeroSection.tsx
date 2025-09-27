@@ -54,7 +54,7 @@ export const HeroSection = () => {
       </div>
 
       {/* Floating badges */}
-      <div className="absolute bottom-8 left-8 hidden md:block animate-float">
+      <div className="absolute bottom-8 left-8 hidden md:block">
         <div className="bg-background/90 backdrop-blur-sm rounded-lg p-3 shadow-lg border border-border">
           <div className="flex items-center space-x-2">
             <TrendingUp className="h-4 w-4 text-primary" />

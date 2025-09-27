@@ -14,7 +14,7 @@ export const Navbar = () => {
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex h-16 items-center justify-between">
           {/* Logo */}
-          <div className="flex items-center space-x-2">
+          <Link to="/" className="flex items-center space-x-2 hover:opacity-80 transition-opacity">
             <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary text-primary-foreground">
               <Brain className="h-5 w-5" />
             </div>
@@ -22,12 +22,12 @@ export const Navbar = () => {
               <h1 className="text-lg font-bold text-foreground">ReBooked Genius</h1>
               <p className="text-xs text-muted-foreground">Past Papers & Study Resources</p>
             </div>
-          </div>
+          </Link>
 
           {/* Desktop Navigation Links */}
           <div className="hidden md:flex items-center space-x-8">
             <Link to="/" className="text-sm font-medium text-foreground hover:text-primary transition-colors">Home</Link>
-            <Link to="/browse-papers" className="text-sm font-medium text-foreground hover:text-primary transition-colors">Browse Papers</Link>
+            <Link to="/grades" className="text-sm font-medium text-foreground hover:text-primary transition-colors">Grades</Link>
             <Link to="/subjects" className="text-sm font-medium text-foreground hover:text-primary transition-colors">Subjects</Link>
             <Link to="/about" className="text-sm font-medium text-foreground hover:text-primary transition-colors">About</Link>
           </div>
@@ -93,7 +93,7 @@ export const Navbar = () => {
             <div className="flex flex-col space-y-4">
               <div className="flex flex-col space-y-2">
                 <Link to="/" className="block text-base font-medium text-foreground" onClick={() => setOpen(false)}>Home</Link>
-                <Link to="/browse-papers" className="block text-base font-medium text-foreground" onClick={() => setOpen(false)}>Browse Papers</Link>
+                <Link to="/grades" className="block text-base font-medium text-foreground" onClick={() => setOpen(false)}>Grades</Link>
                 <Link to="/subjects" className="block text-base font-medium text-foreground" onClick={() => setOpen(false)}>Subjects</Link>
                 <Link to="/about" className="block text-base font-medium text-foreground" onClick={() => setOpen(false)}>About</Link>
               </div>
@@ -104,12 +104,33 @@ export const Navbar = () => {
               </div>
 
               <div className="flex flex-col sm:flex-row sm:space-x-2 space-y-2 sm:space-y-0">
-                <Link to="/auth" onClick={() => setOpen(false)}>
-                  <Button variant="ghost" className="w-full sm:w-auto">Sign In</Button>
-                </Link>
-                <Link to="/auth" onClick={() => setOpen(false)}>
-                  <Button className="w-full sm:w-auto">Get Started</Button>
-                </Link>
+                {user ? (
+                  <>
+                    {isAdmin && (
+                      <Link to="/admin" onClick={() => setOpen(false)}>
+                        <Button variant="outline" className="w-full sm:w-auto">
+                          <Shield className="h-4 w-4 mr-2" />
+                          Admin
+                        </Button>
+                      </Link>
+                    )}
+                    <Link to="/profile" onClick={() => setOpen(false)}>
+                      <Button variant="outline" className="w-full sm:w-auto">
+                        <User className="h-4 w-4 mr-2" />
+                        Profile
+                      </Button>
+                    </Link>
+                  </>
+                ) : (
+                  <>
+                    <Link to="/auth" onClick={() => setOpen(false)}>
+                      <Button variant="ghost" className="w-full sm:w-auto">Sign In</Button>
+                    </Link>
+                    <Link to="/auth" onClick={() => setOpen(false)}>
+                      <Button className="w-full sm:w-auto">Get Started</Button>
+                    </Link>
+                  </>
+                )}
               </div>
             </div>
           </div>

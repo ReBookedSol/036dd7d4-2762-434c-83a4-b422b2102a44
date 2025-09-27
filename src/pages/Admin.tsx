@@ -14,6 +14,7 @@ import { ContactMessages } from "@/components/admin/ContactMessages";
 import { Reports } from "@/components/admin/Reports";
 import { PromoCodeManagement } from "@/components/admin/PromoCodeManagement";
 import { SubscriptionManagement } from "@/components/admin/SubscriptionManagement";
+import { PracticeTestManagement } from "@/components/admin/PracticeTestManagement";
 
 const Admin = () => {
   const navigate = useNavigate();
@@ -58,38 +59,42 @@ const Admin = () => {
         </div>
 
         <Tabs defaultValue="dashboard" className="space-y-6">
-          <TabsList className="grid w-full grid-cols-4 lg:grid-cols-8">
-            <TabsTrigger value="dashboard" className="flex items-center gap-2">
-              <BarChart3 className="h-4 w-4" />
-              Dashboard
+          <TabsList className="grid w-full grid-cols-3 lg:grid-cols-9 gap-1">
+            <TabsTrigger value="dashboard" className="flex items-center gap-1 text-xs">
+              <BarChart3 className="h-3 w-3" />
+              <span className="hidden sm:inline">Dashboard</span>
             </TabsTrigger>
-            <TabsTrigger value="users" className="flex items-center gap-2">
-              <Users className="h-4 w-4" />
-              Users
+            <TabsTrigger value="users" className="flex items-center gap-1 text-xs">
+              <Users className="h-3 w-3" />
+              <span className="hidden sm:inline">Users</span>
             </TabsTrigger>
-            <TabsTrigger value="papers" className="flex items-center gap-2">
-              <FileText className="h-4 w-4" />
-              Papers
+            <TabsTrigger value="papers" className="flex items-center gap-1 text-xs">
+              <FileText className="h-3 w-3" />
+              <span className="hidden sm:inline">Papers</span>
             </TabsTrigger>
-            <TabsTrigger value="analytics" className="flex items-center gap-2">
-              <BarChart3 className="h-4 w-4" />
-              Analytics
+            <TabsTrigger value="tests" className="flex items-center gap-1 text-xs">
+              <Download className="h-3 w-3" />
+              <span className="hidden sm:inline">Tests</span>
             </TabsTrigger>
-            <TabsTrigger value="subscriptions" className="flex items-center gap-2">
-              <CreditCard className="h-4 w-4" />
-              Subscriptions
+            <TabsTrigger value="analytics" className="flex items-center gap-1 text-xs">
+              <BarChart3 className="h-3 w-3" />
+              <span className="hidden sm:inline">Analytics</span>
             </TabsTrigger>
-            <TabsTrigger value="messages" className="flex items-center gap-2">
-              <MessageSquare className="h-4 w-4" />
-              Messages
+            <TabsTrigger value="subscriptions" className="flex items-center gap-1 text-xs">
+              <CreditCard className="h-3 w-3" />
+              <span className="hidden sm:inline">Subs</span>
             </TabsTrigger>
-            <TabsTrigger value="reports" className="flex items-center gap-2">
-              <Flag className="h-4 w-4" />
-              Reports
+            <TabsTrigger value="messages" className="flex items-center gap-1 text-xs">
+              <MessageSquare className="h-3 w-3" />
+              <span className="hidden sm:inline">Messages</span>
             </TabsTrigger>
-            <TabsTrigger value="promos" className="flex items-center gap-2">
-              <Gift className="h-4 w-4" />
-              Promos
+            <TabsTrigger value="reports" className="flex items-center gap-1 text-xs">
+              <Flag className="h-3 w-3" />
+              <span className="hidden sm:inline">Reports</span>
+            </TabsTrigger>
+            <TabsTrigger value="promos" className="flex items-center gap-1 text-xs">
+              <Gift className="h-3 w-3" />
+              <span className="hidden sm:inline">Promos</span>
             </TabsTrigger>
           </TabsList>
 
@@ -103,6 +108,10 @@ const Admin = () => {
 
           <TabsContent value="papers">
             <PaperManagement />
+          </TabsContent>
+
+          <TabsContent value="tests">
+            <PracticeTestManagement />
           </TabsContent>
 
           <TabsContent value="analytics">

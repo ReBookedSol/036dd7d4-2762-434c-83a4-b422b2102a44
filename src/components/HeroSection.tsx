@@ -2,6 +2,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { TrendingUp, BookOpenCheck, Calendar } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const HERO_IMAGE_URL = "https://images.pexels.com/photos/5905959/pexels-photo-5905959.jpeg";
 
@@ -37,13 +38,17 @@ export const HeroSection = () => {
         </div>
 
         <div className="flex gap-4 mt-6">
-          <Button size="lg" className="bg-primary hover:bg-brand-teal-dark">
-            <BookOpenCheck className="h-4 w-4 mr-2" />
-            Start Learning
-          </Button>
-          <Button variant="outline" size="lg">
-            Browse Subjects
-          </Button>
+          <Link to="/study-guides">
+            <Button size="lg" className="bg-primary hover:bg-brand-teal-dark">
+              <BookOpenCheck className="h-4 w-4 mr-2" />
+              Start Learning
+            </Button>
+          </Link>
+          <Link to="/subjects">
+            <Button variant="outline" size="lg">
+              Browse Subjects
+            </Button>
+          </Link>
         </div>
       </div>
 

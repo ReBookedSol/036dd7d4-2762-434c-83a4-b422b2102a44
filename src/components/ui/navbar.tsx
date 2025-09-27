@@ -26,10 +26,10 @@ export const Navbar = () => {
 
           {/* Desktop Navigation Links */}
           <div className="hidden md:flex items-center space-x-8">
-            <a href="#" className="text-sm font-medium text-foreground hover:text-primary transition-colors">Home</a>
-            <a href="#" className="text-sm font-medium text-foreground hover:text-primary transition-colors">Browse Papers</a>
-            <a href="#" className="text-sm font-medium text-foreground hover:text-primary transition-colors">Subjects</a>
-            <a href="#" className="text-sm font-medium text-foreground hover:text-primary transition-colors">About</a>
+            <Link to="/" className="text-sm font-medium text-foreground hover:text-primary transition-colors">Home</Link>
+            <Link to="/browse-papers" className="text-sm font-medium text-foreground hover:text-primary transition-colors">Browse Papers</Link>
+            <Link to="/subjects" className="text-sm font-medium text-foreground hover:text-primary transition-colors">Subjects</Link>
+            <Link to="/about" className="text-sm font-medium text-foreground hover:text-primary transition-colors">About</Link>
           </div>
 
           {/* Search and Auth (desktop) + Mobile toggle */}
@@ -92,10 +92,10 @@ export const Navbar = () => {
           <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-4">
             <div className="flex flex-col space-y-4">
               <div className="flex flex-col space-y-2">
-                <a href="#" className="block text-base font-medium text-foreground">Home</a>
-                <a href="#" className="block text-base font-medium text-foreground">Browse Papers</a>
-                <a href="#" className="block text-base font-medium text-foreground">Subjects</a>
-                <a href="#" className="block text-base font-medium text-foreground">About</a>
+                <Link to="/" className="block text-base font-medium text-foreground" onClick={() => setOpen(false)}>Home</Link>
+                <Link to="/browse-papers" className="block text-base font-medium text-foreground" onClick={() => setOpen(false)}>Browse Papers</Link>
+                <Link to="/subjects" className="block text-base font-medium text-foreground" onClick={() => setOpen(false)}>Subjects</Link>
+                <Link to="/about" className="block text-base font-medium text-foreground" onClick={() => setOpen(false)}>About</Link>
               </div>
 
               <div className="relative">
@@ -104,8 +104,12 @@ export const Navbar = () => {
               </div>
 
               <div className="flex flex-col sm:flex-row sm:space-x-2 space-y-2 sm:space-y-0">
-                <Button variant="ghost">Sign In</Button>
-                <Button>Get Started</Button>
+                <Link to="/auth" onClick={() => setOpen(false)}>
+                  <Button variant="ghost" className="w-full sm:w-auto">Sign In</Button>
+                </Link>
+                <Link to="/auth" onClick={() => setOpen(false)}>
+                  <Button className="w-full sm:w-auto">Get Started</Button>
+                </Link>
               </div>
             </div>
           </div>

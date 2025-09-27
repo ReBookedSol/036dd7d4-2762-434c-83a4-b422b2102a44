@@ -1,19 +1,20 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { 
-  Calculator, 
-  Atom, 
-  Languages, 
-  BookText, 
-  Globe, 
-  Clock, 
-  Palette, 
-  Music, 
-  Monitor, 
-  Microscope, 
+import {
+  Calculator,
+  Atom,
+  Languages,
+  BookText,
+  Globe,
+  Clock,
+  Palette,
+  Music,
+  Monitor,
+  Microscope,
   TrendingUp,
   ArrowRight
 } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const subjects = [
   {
@@ -129,9 +130,11 @@ export const SubjectsSection = () => {
                 <CardContent className="pt-0">
                   <div className="flex items-center justify-between">
                     <span className="text-sm font-medium text-text-muted">{subject.papers}</span>
-                    <Button variant="ghost" size="sm" className="h-8 px-3 text-xs">
-                      Browse Papers
-                    </Button>
+                    <Link to="/browse-papers">
+                      <Button variant="ghost" size="sm" className="h-8 px-3 text-xs">
+                        Browse Papers
+                      </Button>
+                    </Link>
                   </div>
                 </CardContent>
               </Card>
@@ -140,9 +143,11 @@ export const SubjectsSection = () => {
         </div>
 
         <div className="text-center mt-12">
-          <Button variant="outline" size="lg">
-            View All Subjects
-          </Button>
+          <Link to="/subjects">
+            <Button variant="outline" size="lg">
+              View All Subjects
+            </Button>
+          </Link>
         </div>
       </div>
     </section>

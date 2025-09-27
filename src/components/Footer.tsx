@@ -15,7 +15,7 @@ export const Footer = () => {
                 <span className="text-sm font-bold text-primary-foreground">RB</span>
               </div>
               <div>
-                <h3 className="font-bold text-background">ReBooked Genius</h3>
+                <h3 className="font-bold text-background">Weebook Solutions</h3>
                 <p className="text-xs text-background/80">Past Papers & Study Resources</p>
               </div>
             </div>

@@ -7,6 +7,15 @@ import Index from "./pages/Index";
 import Auth from "./pages/Auth";
 import Profile from "./pages/Profile";
 import Admin from "./pages/Admin";
+import About from "./pages/About";
+import Subjects from "./pages/Subjects";
+import BrowsePapers from "./pages/BrowsePapers";
+import StudyGuides from "./pages/StudyGuides";
+import PracticeTests from "./pages/PracticeTests";
+import HelpCenter from "./pages/HelpCenter";
+import Contact from "./pages/Contact";
+import Privacy from "./pages/Privacy";
+import Terms from "./pages/Terms";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -22,6 +31,17 @@ const App = () => (
           <Route path="/auth" element={<Auth />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/admin" element={<Admin />} />
+
+          <Route path="/about" element={<About />} />
+          <Route path="/subjects" element={<Subjects />} />
+          <Route path="/browse-papers" element={<BrowsePapers />} />
+          <Route path="/study-guides" element={<StudyGuides />} />
+          <Route path="/practice-tests" element={<PracticeTests />} />
+          <Route path="/help-center" element={<HelpCenter />} />
+          <Route path="/contact" element={<Contact />} />
+          <Route path="/privacy" element={<Privacy />} />
+          <Route path="/terms" element={<Terms />} />
+
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>

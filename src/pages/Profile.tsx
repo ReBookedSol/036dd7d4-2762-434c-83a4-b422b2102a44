@@ -53,6 +53,8 @@ const Profile = () => {
           setFullName(data.full_name || "");
           setGrade(data.grade || "");
           setSchool(data.school || "");
+          // Fetch real user data
+          fetchUserData(session.user.id);
         }
       } catch (error) {
         console.error("Profile fetch error:", error);
@@ -119,33 +121,115 @@ const Profile = () => {
     );
   }
 
-  // Mock data for analytics
-  const performanceData = [
-    { name: 'Mathematics', score: 85, color: '#3b82f6' },
-    { name: 'Physics', score: 78, color: '#10b981' },
-    { name: 'Chemistry', score: 82, color: '#f59e0b' },
-    { name: 'English', score: 88, color: '#ef4444' },
-  ];
+  // Real data state
+  const [performanceData, setPerformanceData] = useState([]);
+  const [progressData, setProgressData] = useState([]);
+  const [savedPapers, setSavedPapers] = useState([]);
+  const [recentTests, setRecentTests] = useState([]);
+  const [userStats, setUserStats] = useState({
+    testsCompleted: 0,
+    averageScore: 0,
+    papersDownloaded: 0,
+  });
 
-  const progressData = [
-    { month: 'Jan', tests: 5, score: 75 },
-    { month: 'Feb', tests: 8, score: 78 },
-    { month: 'Mar', tests: 6, score: 82 },
-    { month: 'Apr', tests: 10, score: 85 },
-    { month: 'May', tests: 7, score: 88 },
-  ];
+  const fetchUserData = async (userId: string) => {
+    try {
+      // Fetch practice test attempts for performance data
+      const { data: attempts } = await supabase
+        .from("practice_test_attempts")
+        .select(`
+          *,
+          practice_tests(subject)
+        `)
+        .eq("user_id", userId)
+        .eq("completed", true)
+        .order("completed_at", { ascending: false });
 
-  const savedPapers = [
-    { title: "Mathematics Paper 1 - 2024", subject: "Mathematics", date: "2024-03-15" },
-    { title: "Physical Sciences Paper 2 - 2023", subject: "Physics", date: "2024-03-12" },
-    { title: "English HL Paper 1 - 2024", subject: "English", date: "2024-03-10" },
-  ];
+      // Fetch saved papers
+      const { data: saved } = await supabase
+        .from("saved_papers")
+        .select(`
+          *,
+          papers(title, paper_type, year, subjects(name))
+        `)
+        .eq("user_id", userId)
+        .order("saved_at", { ascending: false })
+        .limit(10);
 
-  const recentTests = [
-    { title: "Math Practice Test #5", score: 85, total: 100, date: "2024-03-14" },
-    { title: "Physics Mock Exam", score: 78, total: 100, date: "2024-03-12" },
-    { title: "Chemistry Quiz", score: 92, total: 100, date: "2024-03-10" },
-  ];
+      // Fetch downloads
+      const { data: downloads } = await supabase
+        .from("downloads")
+        .select("*")
+        .eq("user_id", userId);
+
+      // Process performance data by subject
+      const subjectScores: Record<string, number[]> = {};
+      attempts?.forEach((attempt: any) => {
+        const subject = attempt.practice_tests?.subject || "General";
+        const score = (attempt.score / attempt.total_points) * 100;
+        if (!subjectScores[subject]) subjectScores[subject] = [];
+        subjectScores[subject].push(score);
+      });
+
+      const performanceData = Object.entries(subjectScores).map(([subject, scores], index) => {
+        const colors = ['#3b82f6', '#10b981', '#f59e0b', '#ef4444', '#8b5cf6'];
+        return {
+          name: subject,
+          score: Math.round(scores.reduce((a, b) => a + b, 0) / scores.length),
+          color: colors[index % colors.length],
+        };
+      });
+
+      // Process progress data (monthly)
+      const monthlyData: Record<string, { tests: number; totalScore: number; count: number }> = {};
+      attempts?.forEach((attempt: any) => {
+        const month = new Date(attempt.completed_at).toLocaleString('default', { month: 'short' });
+        if (!monthlyData[month]) {
+          monthlyData[month] = { tests: 0, totalScore: 0, count: 0 };
+        }
+        monthlyData[month].tests++;
+        monthlyData[month].totalScore += (attempt.score / attempt.total_points) * 100;
+        monthlyData[month].count++;
+      });
+
+      const progressData = Object.entries(monthlyData).map(([month, data]) => ({
+        month,
+        tests: data.tests,
+        score: Math.round(data.totalScore / data.count) || 0,
+      }));
+
+      // Process saved papers
+      const savedPapers = saved?.map((item: any) => ({
+        title: item.papers?.title || "Unknown Paper",
+        subject: item.papers?.subjects?.name || "General",
+        date: new Date(item.saved_at).toISOString().split('T')[0],
+      })) || [];
+
+      // Process recent tests
+      const recentTests = attempts?.slice(0, 5).map((attempt: any) => ({
+        title: `${attempt.practice_tests?.subject || "General"} Practice Test`,
+        score: attempt.score,
+        total: attempt.total_points,
+        date: new Date(attempt.completed_at).toISOString().split('T')[0],
+      })) || [];
+
+      // Calculate user stats
+      const testsCompleted = attempts?.length || 0;
+      const averageScore = attempts?.length 
+        ? Math.round(attempts.reduce((sum: number, attempt: any) => 
+            sum + (attempt.score / attempt.total_points) * 100, 0) / attempts.length)
+        : 0;
+      const papersDownloaded = downloads?.length || 0;
+
+      setPerformanceData(performanceData);
+      setProgressData(progressData);
+      setSavedPapers(savedPapers);
+      setRecentTests(recentTests);
+      setUserStats({ testsCompleted, averageScore, papersDownloaded });
+    } catch (error) {
+      console.error("Error fetching user data:", error);
+    }
+  };
 
   return (
     <div className="min-h-screen bg-background">
@@ -172,8 +256,8 @@ const Profile = () => {
                   <Target className="h-4 w-4 text-muted-foreground" />
                 </CardHeader>
                 <CardContent>
-                  <div className="text-2xl font-bold">36</div>
-                  <p className="text-xs text-muted-foreground">+12% from last month</p>
+                  <div className="text-2xl font-bold">{userStats.testsCompleted}</div>
+                  <p className="text-xs text-muted-foreground">Practice tests completed</p>
                 </CardContent>
               </Card>
               <Card>
@@ -182,8 +266,8 @@ const Profile = () => {
                   <Trophy className="h-4 w-4 text-muted-foreground" />
                 </CardHeader>
                 <CardContent>
-                  <div className="text-2xl font-bold">83%</div>
-                  <p className="text-xs text-muted-foreground">+5% improvement</p>
+                  <div className="text-2xl font-bold">{userStats.averageScore}%</div>
+                  <p className="text-xs text-muted-foreground">Average test score</p>
                 </CardContent>
               </Card>
               <Card>
@@ -192,8 +276,8 @@ const Profile = () => {
                   <FileText className="h-4 w-4 text-muted-foreground" />
                 </CardHeader>
                 <CardContent>
-                  <div className="text-2xl font-bold">24</div>
-                  <p className="text-xs text-muted-foreground">This month</p>
+                  <div className="text-2xl font-bold">{userStats.papersDownloaded}</div>
+                  <p className="text-xs text-muted-foreground">Papers downloaded</p>
                 </CardContent>
               </Card>
             </div>
@@ -205,7 +289,7 @@ const Profile = () => {
                   <CardDescription>Your latest practice test scores</CardDescription>
                 </CardHeader>
                 <CardContent className="space-y-4">
-                  {recentTests.map((test, i) => (
+                  {recentTests.length > 0 ? recentTests.map((test, i) => (
                     <div key={i} className="flex items-center justify-between p-4 border rounded-lg">
                       <div>
                         <p className="font-medium">{test.title}</p>
@@ -215,7 +299,12 @@ const Profile = () => {
                         {test.score}/{test.total}
                       </Badge>
                     </div>
-                  ))}
+                  )) : (
+                    <div className="text-center py-8 text-muted-foreground">
+                      <p>No practice tests completed yet</p>
+                      <p className="text-sm">Take some practice tests to see your results here</p>
+                    </div>
+                  )}
                 </CardContent>
               </Card>
 
@@ -225,7 +314,7 @@ const Profile = () => {
                   <CardDescription>Your learning activity this week</CardDescription>
                 </CardHeader>
                 <CardContent className="space-y-4">
-                  {savedPapers.slice(0, 3).map((paper, i) => (
+                  {savedPapers.length > 0 ? savedPapers.slice(0, 3).map((paper, i) => (
                     <div key={i} className="flex items-center justify-between p-4 border rounded-lg">
                       <div className="flex items-center gap-3">
                         <BookOpen className="h-8 w-8 text-primary bg-primary/10 p-2 rounded" />
@@ -236,7 +325,12 @@ const Profile = () => {
                       </div>
                       <p className="text-sm text-muted-foreground">{paper.date}</p>
                     </div>
-                  ))}
+                  )) : (
+                    <div className="text-center py-8 text-muted-foreground">
+                      <p>No saved papers yet</p>
+                      <p className="text-sm">Save some papers to see them here</p>
+                    </div>
+                  )}
                 </CardContent>
               </Card>
             </div>
@@ -321,7 +415,7 @@ const Profile = () => {
               </CardHeader>
               <CardContent>
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                  {savedPapers.map((paper, i) => (
+                  {savedPapers.length > 0 ? savedPapers.map((paper, i) => (
                     <Card key={i} className="hover:shadow-lg transition-shadow">
                       <CardHeader className="pb-3">
                         <div className="flex items-center gap-2">
@@ -340,7 +434,18 @@ const Profile = () => {
                         </div>
                       </CardContent>
                     </Card>
-                  ))}
+                  )) : (
+                    <div className="col-span-full text-center py-12">
+                      <BookOpen className="h-12 w-12 text-muted-foreground mx-auto mb-4 opacity-50" />
+                      <h3 className="text-lg font-medium text-muted-foreground mb-2">No saved papers yet</h3>
+                      <p className="text-sm text-muted-foreground mb-4">
+                        Browse and save papers to build your personal library
+                      </p>
+                      <Button variant="outline" onClick={() => navigate("/browse-papers")}>
+                        Browse Papers
+                      </Button>
+                    </div>
+                  )}
                 </div>
               </CardContent>
             </Card>

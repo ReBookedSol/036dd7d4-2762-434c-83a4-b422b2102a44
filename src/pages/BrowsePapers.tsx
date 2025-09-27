@@ -1,3 +1,5 @@
+import { useState, useEffect } from "react";
+import { supabase } from "@/integrations/supabase/client";
 import { Navbar } from "@/components/ui/navbar";
 import { Footer } from "@/components/Footer";
 import { Button } from "@/components/ui/button";
@@ -5,16 +7,86 @@ import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Search, Filter, Calendar, Download, Eye } from "lucide-react";
+import { Search, Filter, Calendar, Download, Eye, Loader2 } from "lucide-react";
+import { useToast } from "@/components/ui/use-toast";
 
-const mockPapers = [
-  { title: "Mathematics Paper 1", subject: "Mathematics", grade: "Grade 12", year: 2024, type: "Final Exam", downloads: 3420 },
-  { title: "English HL Paper 1", subject: "English", grade: "Grade 12", year: 2024, type: "Final Exam", downloads: 4120 },
-  { title: "Physical Sciences Paper 2", subject: "Physical Sciences", grade: "Grade 12", year: 2023, type: "Final Exam", downloads: 2890 },
-  { title: "Life Sciences Paper 1", subject: "Life Sciences", grade: "Grade 12", year: 2024, type: "Trial Exam", downloads: 2340 },
-];
+interface Paper {
+  id: string;
+  title: string;
+  year: number;
+  paper_type: string;
+  download_count: number;
+  subjects: {
+    name: string;
+  };
+}
 
 const BrowsePapers = () => {
+  const [papers, setPapers] = useState<Paper[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [selectedSubject, setSelectedSubject] = useState("");
+  const [selectedYear, setSelectedYear] = useState("");
+  const [selectedType, setSelectedType] = useState("");
+  const { toast } = useToast();
+
+  useEffect(() => {
+    fetchPapers();
+  }, []);
+
+  const fetchPapers = async () => {
+    try {
+      setLoading(true);
+      const { data, error } = await supabase
+        .from("papers")
+        .select(`
+          id,
+          title,
+          year,
+          paper_type,
+          download_count,
+          subjects (
+            name
+          )
+        `)
+        .eq("approved", true)
+        .order("created_at", { ascending: false });
+
+      if (error) throw error;
+      setPapers(data || []);
+    } catch (error: any) {
+      console.error("Error fetching papers:", error);
+      toast({
+        title: "Error",
+        description: "Failed to load papers. Please try again.",
+        variant: "destructive",
+      });
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const filteredPapers = papers.filter((paper) => {
+    const matchesSearch = paper.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                         paper.subjects.name.toLowerCase().includes(searchTerm.toLowerCase());
+    const matchesSubject = !selectedSubject || paper.subjects.name === selectedSubject;
+    const matchesYear = !selectedYear || paper.year.toString() === selectedYear;
+    const matchesType = !selectedType || paper.paper_type === selectedType;
+    
+    return matchesSearch && matchesSubject && matchesYear && matchesType;
+  });
+
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-background">
+        <Navbar />
+        <div className="flex items-center justify-center min-h-[80vh]">
+          <Loader2 className="h-8 w-8 animate-spin" />
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="min-h-screen bg-background">
       <Navbar />
@@ -24,20 +96,25 @@ const BrowsePapers = () => {
           <div className="flex items-center gap-2">
             <div className="relative">
               <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
-              <Input className="pl-9 w-64" placeholder="Search papers" />
+              <Input 
+                className="pl-9 w-64" 
+                placeholder="Search papers" 
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+              />
             </div>
             <Button variant="outline"><Filter className="h-4 w-4 mr-2" />Filters</Button>
           </div>
         </div>
 
         <div className="grid grid-cols-2 md:grid-cols-5 gap-3 mb-8">
-          <Select>
+          <Select value={selectedSubject} onValueChange={setSelectedSubject}>
             <SelectTrigger><SelectValue placeholder="Subject" /></SelectTrigger>
             <SelectContent>
-              <SelectItem value="math">Mathematics</SelectItem>
-              <SelectItem value="science">Physical Sciences</SelectItem>
-              <SelectItem value="english">English</SelectItem>
-              <SelectItem value="life">Life Sciences</SelectItem>
+              <SelectItem value="">All Subjects</SelectItem>
+              {Array.from(new Set(papers.map(p => p.subjects.name))).map(subject => (
+                <SelectItem key={subject} value={subject}>{subject}</SelectItem>
+              ))}
             </SelectContent>
           </Select>
           <Select>
@@ -48,44 +125,80 @@ const BrowsePapers = () => {
               <SelectItem value="12">Grade 12</SelectItem>
             </SelectContent>
           </Select>
-          <Select>
+          <Select value={selectedYear} onValueChange={setSelectedYear}>
             <SelectTrigger><SelectValue placeholder="Year" /></SelectTrigger>
             <SelectContent>
-              <SelectItem value="2024">2024</SelectItem>
-              <SelectItem value="2023">2023</SelectItem>
-              <SelectItem value="2022">2022</SelectItem>
+              <SelectItem value="">All Years</SelectItem>
+              {Array.from(new Set(papers.map(p => p.year.toString()))).sort((a, b) => parseInt(b) - parseInt(a)).map(year => (
+                <SelectItem key={year} value={year}>{year}</SelectItem>
+              ))}
             </SelectContent>
           </Select>
-          <Select>
+          <Select value={selectedType} onValueChange={setSelectedType}>
             <SelectTrigger><SelectValue placeholder="Paper Type" /></SelectTrigger>
             <SelectContent>
-              <SelectItem value="exam">Exam</SelectItem>
-              <SelectItem value="memo">Memo</SelectItem>
-              <SelectItem value="practice">Practice</SelectItem>
+              <SelectItem value="">All Types</SelectItem>
+              {Array.from(new Set(papers.map(p => p.paper_type))).map(type => (
+                <SelectItem key={type} value={type}>{type}</SelectItem>
+              ))}
             </SelectContent>
           </Select>
-          <Button variant="outline">Reset</Button>
+          <Button 
+            variant="outline" 
+            onClick={() => {
+              setSelectedSubject("");
+              setSelectedYear("");
+              setSelectedType("");
+              setSearchTerm("");
+            }}
+          >
+            Reset
+          </Button>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {mockPapers.map((paper, i) => (
-            <Card key={i} className="group hover:shadow-lg transition">
+          {filteredPapers.length > 0 ? filteredPapers.map((paper) => (
+            <Card key={paper.id} className="group hover:shadow-lg transition">
               <CardHeader>
                 <CardTitle className="group-hover:text-primary transition-colors">{paper.title}</CardTitle>
-                <CardDescription>{paper.subject} • {paper.grade}</CardDescription>
+                <CardDescription>{paper.subjects.name}</CardDescription>
               </CardHeader>
               <CardContent className="space-y-3">
                 <div className="flex items-center justify-between text-sm text-muted-foreground">
-                  <div className="flex items-center gap-1"><Calendar className="h-3 w-3" />{paper.year}</div>
-                  <Badge variant="outline">{paper.type}</Badge>
+                  <div className="flex items-center gap-1">
+                    <Calendar className="h-3 w-3" />
+                    {paper.year}
+                  </div>
+                  <Badge variant="outline">{paper.paper_type}</Badge>
+                </div>
+                <div className="text-sm text-muted-foreground">
+                  <div className="flex items-center gap-1">
+                    <Download className="h-3 w-3" />
+                    {paper.download_count} downloads
+                  </div>
                 </div>
                 <div className="flex gap-2">
-                  <Button variant="outline" size="sm" className="flex-1"><Eye className="h-3 w-3 mr-1" />Preview</Button>
-                  <Button size="sm" className="flex-1"><Download className="h-3 w-3 mr-1" />Download</Button>
+                  <Button variant="outline" size="sm" className="flex-1">
+                    <Eye className="h-3 w-3 mr-1" />Preview
+                  </Button>
+                  <Button size="sm" className="flex-1">
+                    <Download className="h-3 w-3 mr-1" />Download
+                  </Button>
                 </div>
               </CardContent>
             </Card>
-          ))}
+          )) : (
+            <div className="col-span-full text-center py-12">
+              <Search className="h-12 w-12 text-muted-foreground mx-auto mb-4 opacity-50" />
+              <h3 className="text-lg font-medium text-muted-foreground mb-2">No papers found</h3>
+              <p className="text-sm text-muted-foreground">
+                {papers.length === 0 
+                  ? "No papers have been uploaded yet." 
+                  : "Try adjusting your search filters to find more papers."
+                }
+              </p>
+            </div>
+          )}
         </div>
       </main>
       <Footer />

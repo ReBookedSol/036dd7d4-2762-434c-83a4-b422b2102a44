@@ -132,21 +132,12 @@ const Auth = () => {
 
       if (error) throw error;
 
-      // If we received a session immediately, navigate right away
-      if (data?.session) {
-        toast({
-          title: "Welcome back!",
-          description: "You have been signed in successfully.",
-        });
-        navigate("/");
-        return;
-      }
-
-      // Otherwise, the user might need to confirm their email (magic link / verification)
       toast({
-        title: "Check your email",
-        description: "Sign-in requires additional verification. Please follow the instructions sent to your email.",
+        title: "Welcome back!",
+        description: "You have been signed in successfully.",
       });
+
+      // The onAuthStateChange listener will handle navigation
     } catch (error: any) {
       console.error("Sign in error:", error);
       toast({

@@ -12,7 +12,7 @@ export const HeroSection = () => {
     <section className="relative overflow-hidden bg-center bg-cover" style={{ backgroundImage: `url(${HERO_IMAGE_URL})` }}>
       <div className="absolute inset-0 bg-gradient-to-br from-black/25 via-brand-teal-pale/20 to-black/20" />
 
-      <div className="relative z-10 flex flex-col items-center justify-center text-center min-h-[520px] py-24 px-4 animate-fade-in-up">
+      <div className="relative z-10 flex flex-col items-center justify-center text-center min-h-[520px] py-24 px-4">
         <Badge variant="secondary" className="w-fit bg-brand-teal-light text-brand-teal-dark border-brand-teal/20 mb-4">
           <TrendingUp className="h-3 w-3 mr-1" />
           Trusted by 50,000+ Students

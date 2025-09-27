@@ -39,17 +39,21 @@ const Chatbot = () => {
 
     try {
       if (useStreaming) {
-        // Streaming response
-        const response = await fetch(`https://kwzezhgyhtysrnvldins.supabase.co/functions/v1/ai-chat`, {
+        // Streaming response with timeout + abort for reliability
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort("timeout"), 20000);
+
+        const response = await fetch(`https://kwzezhgyhtysrnvldins.supabase.co/functions/v1/chatbot`, {
           method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ 
-            messages: updatedMessages.map(msg => ({ role: msg.role, content: msg.content })),
-            stream: true 
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            messages: updatedMessages.map((msg) => ({ role: msg.role, content: msg.content })),
+            stream: true,
           }),
+          signal: controller.signal,
         });
+
+        clearTimeout(timeoutId);
 
         if (!response.ok) {
           throw new Error("Streaming request failed");
@@ -74,12 +78,12 @@ const Chatbot = () => {
 
         // Add the complete message to chat history
         if (accumulatedText) {
-          setMessages(prev => [...prev, { role: "assistant", content: accumulatedText }]);
+          setMessages((prev) => [...prev, { role: "assistant", content: accumulatedText }]);
         }
         setStreamingMessage("");
       } else {
         // Fallback to non-streaming
-        const { data, error } = await supabase.functions.invoke("ai-chat", {
+        const { data, error } = await supabase.functions.invoke("chatbot", {
           body: { messages: updatedMessages.map(msg => ({ role: msg.role, content: msg.content })) },
         });
 

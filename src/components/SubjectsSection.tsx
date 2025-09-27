@@ -129,9 +129,11 @@ export const SubjectsSection = () => {
                 <CardContent className="pt-0">
                   <div className="flex items-center justify-between">
                     <span className="text-sm font-medium text-text-muted">{subject.papers}</span>
-                    <Button variant="ghost" size="sm" className="h-8 px-3 text-xs">
-                      Browse Papers
-                    </Button>
+                    <a href="/browse-papers">
+                      <Button variant="ghost" size="sm" className="h-8 px-3 text-xs">
+                        Browse Papers
+                      </Button>
+                    </a>
                   </div>
                 </CardContent>
               </Card>

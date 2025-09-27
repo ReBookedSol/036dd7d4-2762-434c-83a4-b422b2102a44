@@ -19,7 +19,7 @@ All colors MUST be HSL.
     --popover-foreground: 220 20% 20%;
 
     /* Darker Teal Primary Brand Colors - Matching Reference */
-    --primary: 180 65% 35%;
+    --primary: 171 51% 37%;
     --primary-foreground: 0 0% 100%;
     
     /* Secondary variations */
@@ -42,10 +42,10 @@ All colors MUST be HSL.
     --radius: 0.75rem;
     
     /* Custom Brand Colors - Darker Teal */
-    --brand-teal: 180 65% 35%;
-    --brand-teal-dark: 180 65% 25%;
-    --brand-teal-light: 180 40% 88%;
-    --brand-teal-pale: 180 35% 96%;
+    --brand-teal: 171 51% 37%;
+    --brand-teal-dark: 171 51% 33%;
+    --brand-teal-light: 171 40% 88%;
+    --brand-teal-pale: 171 35% 96%;
     
     /* Hero gradient */
     --gradient-hero: linear-gradient(135deg, hsl(var(--brand-teal)), hsl(var(--brand-teal-dark)));
@@ -81,7 +81,7 @@ All colors MUST be HSL.
     --popover: 220 25% 10%;
     --popover-foreground: 0 0% 95%;
 
-    --primary: 180 65% 40%;
+    --primary: 171 51% 42%;
     --primary-foreground: 220 25% 8%;
 
     --secondary: 220 25% 15%;
@@ -101,10 +101,10 @@ All colors MUST be HSL.
     --ring: 180 65% 40%;
     
     /* Dark mode brand colors - Darker Teal */
-    --brand-teal: 180 65% 40%;
-    --brand-teal-dark: 180 65% 30%;
-    --brand-teal-light: 180 30% 25%;
-    --brand-teal-pale: 180 25% 15%;
+    --brand-teal: 171 51% 42%;
+    --brand-teal-dark: 171 51% 30%;
+    --brand-teal-light: 171 30% 25%;
+    --brand-teal-pale: 171 25% 15%;
     
     --gradient-hero: linear-gradient(135deg, hsl(var(--brand-teal)), hsl(var(--brand-teal-dark)));
     

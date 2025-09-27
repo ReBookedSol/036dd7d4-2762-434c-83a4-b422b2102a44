@@ -96,7 +96,7 @@ export const LatestPapersSection = () => {
             Latest <span className="text-primary">Past Papers</span>
           </h2>
           <p className="text-lg text-text-muted max-w-2xl mx-auto">
-            Recently added past papers from the 2024 academic year. 
+            Recently added past papers from the 2025 academic year.
             Stay updated with the latest exam formats and question types.
           </p>
         </div>

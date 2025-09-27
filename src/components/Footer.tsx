@@ -4,7 +4,7 @@ import { Facebook, Twitter, Instagram, Linkedin, Mail } from "lucide-react";
 
 export const Footer = () => {
   return (
-    <footer className="bg-muted/50 border-t border-border">
+    <footer className="bg-foreground text-background">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           {/* Brand Section */}
@@ -14,25 +14,25 @@ export const Footer = () => {
                 <span className="text-sm font-bold text-primary-foreground">RB</span>
               </div>
               <div>
-                <h3 className="font-bold text-foreground">ReBooked Genius</h3>
-                <p className="text-xs text-muted-foreground">Past Papers & Study Resources</p>
+                <h3 className="font-bold text-background">ReBooked Genius</h3>
+                <p className="text-xs text-background/80">Past Papers & Study Resources</p>
               </div>
             </div>
-            <p className="text-sm text-muted-foreground">
-              Access thousands of high-quality past exam papers, study guides, and resources. 
+            <p className="text-sm text-background/80">
+              Access thousands of high-quality past exam papers, study guides, and resources.
               Boost your confidence and excel in your studies.
             </p>
             <div className="flex space-x-3">
-              <Button variant="ghost" size="sm" className="h-8 w-8 p-0">
+              <Button variant="ghost" size="sm" className="h-8 w-8 p-0 text-background hover:bg-background/10">
                 <Facebook className="h-4 w-4" />
               </Button>
-              <Button variant="ghost" size="sm" className="h-8 w-8 p-0">
+              <Button variant="ghost" size="sm" className="h-8 w-8 p-0 text-background hover:bg-background/10">
                 <Twitter className="h-4 w-4" />
               </Button>
-              <Button variant="ghost" size="sm" className="h-8 w-8 p-0">
+              <Button variant="ghost" size="sm" className="h-8 w-8 p-0 text-background hover:bg-background/10">
                 <Instagram className="h-4 w-4" />
               </Button>
-              <Button variant="ghost" size="sm" className="h-8 w-8 p-0">
+              <Button variant="ghost" size="sm" className="h-8 w-8 p-0 text-background hover:bg-background/10">
                 <Linkedin className="h-4 w-4" />
               </Button>
             </div>
@@ -40,30 +40,30 @@ export const Footer = () => {
 
           {/* Quick Links */}
           <div className="space-y-4">
-            <h4 className="font-semibold text-foreground">Quick Links</h4>
+            <h4 className="font-semibold text-background">Quick Links</h4>
             <ul className="space-y-2">
-              <li><a href="#" className="text-sm text-muted-foreground hover:text-primary transition-colors">Browse Papers</a></li>
-              <li><a href="#" className="text-sm text-muted-foreground hover:text-primary transition-colors">All Subjects</a></li>
-              <li><a href="#" className="text-sm text-muted-foreground hover:text-primary transition-colors">Study Guides</a></li>
-              <li><a href="#" className="text-sm text-muted-foreground hover:text-primary transition-colors">Practice Tests</a></li>
+              <li><a href="#" className="text-sm text-background/80 hover:text-background transition-colors">Browse Papers</a></li>
+              <li><a href="#" className="text-sm text-background/80 hover:text-background transition-colors">All Subjects</a></li>
+              <li><a href="#" className="text-sm text-background/80 hover:text-background transition-colors">Study Guides</a></li>
+              <li><a href="#" className="text-sm text-background/80 hover:text-background transition-colors">Practice Tests</a></li>
             </ul>
           </div>
 
           {/* Support */}
           <div className="space-y-4">
-            <h4 className="font-semibold text-foreground">Support</h4>
+            <h4 className="font-semibold text-background">Support</h4>
             <ul className="space-y-2">
-              <li><a href="#" className="text-sm text-muted-foreground hover:text-primary transition-colors">Help Center</a></li>
-              <li><a href="#" className="text-sm text-muted-foreground hover:text-primary transition-colors">Contact Us</a></li>
-              <li><a href="#" className="text-sm text-muted-foreground hover:text-primary transition-colors">Privacy Policy</a></li>
-              <li><a href="#" className="text-sm text-muted-foreground hover:text-primary transition-colors">Terms of Service</a></li>
+              <li><a href="#" className="text-sm text-background/80 hover:text-background transition-colors">Help Center</a></li>
+              <li><a href="#" className="text-sm text-background/80 hover:text-background transition-colors">Contact Us</a></li>
+              <li><a href="#" className="text-sm text-background/80 hover:text-background transition-colors">Privacy Policy</a></li>
+              <li><a href="#" className="text-sm text-background/80 hover:text-background transition-colors">Terms of Service</a></li>
             </ul>
           </div>
 
           {/* Newsletter */}
           <div className="space-y-4">
-            <h4 className="font-semibold text-foreground">Stay Updated</h4>
-            <p className="text-sm text-muted-foreground">
+            <h4 className="font-semibold text-background">Stay Updated</h4>
+            <p className="text-sm text-background/80">
               Get notified about new papers and study resources.
             </p>
             <div className="space-y-2">
@@ -84,14 +84,14 @@ export const Footer = () => {
         </div>
 
         {/* Bottom Bar */}
-        <div className="border-t border-border mt-8 pt-8 flex flex-col md:flex-row justify-between items-center">
-          <p className="text-sm text-muted-foreground">
+        <div className="border-t border-background/20 mt-8 pt-8 flex flex-col md:flex-row justify-between items-center">
+          <p className="text-sm text-background/70">
             © {new Date().getFullYear()} ReBooked Genius. All rights reserved.
           </p>
           <div className="flex space-x-6 mt-4 md:mt-0">
-            <a href="#" className="text-sm text-muted-foreground hover:text-primary transition-colors">Privacy</a>
-            <a href="#" className="text-sm text-muted-foreground hover:text-primary transition-colors">Terms</a>
-            <a href="#" className="text-sm text-muted-foreground hover:text-primary transition-colors">Cookies</a>
+            <a href="#" className="text-sm text-background/80 hover:text-background transition-colors">Privacy</a>
+            <a href="#" className="text-sm text-background/80 hover:text-background transition-colors">Terms</a>
+            <a href="#" className="text-sm text-background/80 hover:text-background transition-colors">Cookies</a>
           </div>
         </div>
       </div>

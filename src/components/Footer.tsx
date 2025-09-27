@@ -62,7 +62,7 @@ export const Footer = () => {
 
           {/* Newsletter */}
           <div className="space-y-4">
-            <h4 className="font-semibold text-foreground">Stay Updated</h4>
+            <h4 className="font-semibold text-background">Stay Updated</h4>
             <p className="text-sm text-muted-foreground">
               Get notified about new papers and study resources.
             </p>

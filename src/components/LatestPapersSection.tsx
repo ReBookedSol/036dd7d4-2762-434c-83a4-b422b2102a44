@@ -137,34 +137,22 @@ export const LatestPapersSection = () => {
                   </Badge>
                 </div>
 
-                <div className="grid grid-cols-2 gap-2 text-sm">
+                <div className="flex items-center justify-between text-sm">
                   <div>
                     <span className="text-text-muted">Type:</span>
                     <div className="font-medium">{paper.paperType}</div>
                   </div>
-                  <div>
-                    <span className="text-text-muted">Topic:</span>
-                    <div className="font-medium">{paper.topic}</div>
-                  </div>
-                </div>
-
-                <div className="flex items-center justify-between">
-                  <Badge 
-                    variant="secondary" 
-                    className={`text-xs ${getDifficultyColor(paper.difficulty)}`}
-                  >
-                    {paper.difficulty}
-                  </Badge>
-                  <div className="flex items-center gap-1 text-sm text-text-muted">
-                    <Star className="h-3 w-3 fill-yellow-400 text-yellow-400" />
-                    <span>{paper.rating}</span>
-                  </div>
-                </div>
-
-                <div className="flex items-center justify-between text-sm text-text-muted">
-                  <div className="flex items-center gap-1">
-                    <Download className="h-3 w-3" />
-                    <span>{paper.downloads}</span>
+                  <div className="flex items-center gap-2">
+                    <Badge
+                      variant="secondary"
+                      className={`text-xs ${getDifficultyColor(paper.difficulty)}`}
+                    >
+                      {paper.difficulty}
+                    </Badge>
+                    <div className="flex items-center gap-1 text-sm text-text-muted">
+                      <Download className="h-3 w-3" />
+                      <span>{paper.downloads}</span>
+                    </div>
                   </div>
                 </div>
 

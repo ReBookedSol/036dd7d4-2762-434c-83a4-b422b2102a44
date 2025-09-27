@@ -92,10 +92,10 @@ export const Navbar = () => {
           <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-4">
             <div className="flex flex-col space-y-4">
               <div className="flex flex-col space-y-2">
-                <a href="#" className="block text-base font-medium text-foreground">Home</a>
-                <a href="#" className="block text-base font-medium text-foreground">Browse Papers</a>
-                <a href="#" className="block text-base font-medium text-foreground">Subjects</a>
-                <a href="#" className="block text-base font-medium text-foreground">About</a>
+                <Link to="/" className="block text-base font-medium text-foreground" onClick={() => setOpen(false)}>Home</Link>
+                <Link to="/browse-papers" className="block text-base font-medium text-foreground" onClick={() => setOpen(false)}>Browse Papers</Link>
+                <Link to="/subjects" className="block text-base font-medium text-foreground" onClick={() => setOpen(false)}>Subjects</Link>
+                <Link to="/about" className="block text-base font-medium text-foreground" onClick={() => setOpen(false)}>About</Link>
               </div>
 
               <div className="relative">

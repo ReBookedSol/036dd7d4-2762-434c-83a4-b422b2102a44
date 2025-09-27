@@ -26,10 +26,10 @@ export const Navbar = () => {
 
           {/* Desktop Navigation Links */}
           <div className="hidden md:flex items-center space-x-8">
-            <a href="#" className="text-sm font-medium text-foreground hover:text-primary transition-colors">Home</a>
-            <a href="#" className="text-sm font-medium text-foreground hover:text-primary transition-colors">Browse Papers</a>
-            <a href="#" className="text-sm font-medium text-foreground hover:text-primary transition-colors">Subjects</a>
-            <a href="#" className="text-sm font-medium text-foreground hover:text-primary transition-colors">About</a>
+            <Link to="/" className="text-sm font-medium text-foreground hover:text-primary transition-colors">Home</Link>
+            <Link to="/browse-papers" className="text-sm font-medium text-foreground hover:text-primary transition-colors">Browse Papers</Link>
+            <Link to="/subjects" className="text-sm font-medium text-foreground hover:text-primary transition-colors">Subjects</Link>
+            <Link to="/about" className="text-sm font-medium text-foreground hover:text-primary transition-colors">About</Link>
           </div>
 
           {/* Search and Auth (desktop) + Mobile toggle */}

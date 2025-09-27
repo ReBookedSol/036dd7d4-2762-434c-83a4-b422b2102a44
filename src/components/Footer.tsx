@@ -42,10 +42,10 @@ export const Footer = () => {
           <div className="space-y-4">
             <h4 className="font-semibold text-background">Quick Links</h4>
             <ul className="space-y-2">
-              <li><a href="#" className="text-sm text-background/80 hover:text-background transition-colors">Browse Papers</a></li>
-              <li><a href="#" className="text-sm text-background/80 hover:text-background transition-colors">All Subjects</a></li>
-              <li><a href="#" className="text-sm text-background/80 hover:text-background transition-colors">Study Guides</a></li>
-              <li><a href="#" className="text-sm text-background/80 hover:text-background transition-colors">Practice Tests</a></li>
+              <li><a href="/browse-papers" className="text-sm text-background/80 hover:text-background transition-colors">Browse Papers</a></li>
+              <li><a href="/subjects" className="text-sm text-background/80 hover:text-background transition-colors">All Subjects</a></li>
+              <li><a href="/study-guides" className="text-sm text-background/80 hover:text-background transition-colors">Study Guides</a></li>
+              <li><a href="/practice-tests" className="text-sm text-background/80 hover:text-background transition-colors">Practice Tests</a></li>
             </ul>
           </div>
 

@@ -15,6 +15,11 @@ interface Profile {
   updated_at: string;
 }
 
+// Simple in-memory cache to avoid duplicate profile fetches across components
+let cachedProfile: Profile | null = null;
+let cachedUserId: string | null = null;
+let pendingProfilePromise: Promise<Profile | null> | null = null;
+
 export const useAuth = () => {
   const [user, setUser] = useState<User | null>(null);
   const [profile, setProfile] = useState<Profile | null>(null);
@@ -53,20 +58,40 @@ export const useAuth = () => {
 
   const fetchProfile = async (userId: string) => {
     try {
-      const { data, error } = await supabase
-        .from("profiles")
-        .select("*")
-        .eq("user_id", userId)
-        .single();
-
-      if (error) {
-        console.error("Error fetching profile:", error);
-      } else {
-        setProfile(data);
+      // Use cached profile to reduce duplicate network calls across components
+      if (cachedUserId === userId && cachedProfile) {
+        setProfile(cachedProfile);
+        setLoading(false);
+        return;
       }
+      if (pendingProfilePromise && cachedUserId === userId) {
+        const data = await pendingProfilePromise;
+        if (data) setProfile(data);
+        return;
+      }
+
+      cachedUserId = userId;
+      setLoading(true);
+      pendingProfilePromise = (async () => {
+        const { data, error } = await supabase
+          .from("profiles")
+          .select("*")
+          .eq("user_id", userId)
+          .single();
+        if (error) {
+          console.error("Error fetching profile:", error);
+          return null;
+        }
+        cachedProfile = data;
+        return data;
+      })();
+
+      const data = await pendingProfilePromise;
+      pendingProfilePromise = null;
+      setLoading(false);
+      if (data) setProfile(data);
     } catch (error) {
       console.error("Error fetching profile:", error);
-    } finally {
       setLoading(false);
     }
   };

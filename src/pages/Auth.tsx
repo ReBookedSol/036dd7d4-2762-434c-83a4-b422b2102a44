@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -21,11 +21,13 @@ const Auth = () => {
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const navigate = useNavigate();
   const { toast } = useToast();
+  const navigatedRef = useRef(false);
 
   useEffect(() => {
     // Subscribe to auth changes and navigate when a session is available
     const { data } = supabase.auth.onAuthStateChange((event, session) => {
-      if (session) {
+      if (event === "SIGNED_IN" && session && !navigatedRef.current) {
+        navigatedRef.current = true;
         navigate("/");
       }
     });
@@ -33,7 +35,10 @@ const Auth = () => {
     // Check initial session safely
     supabase.auth.getSession().then((res) => {
       const session = res?.data?.session ?? null;
-      if (session) navigate("/");
+      if (session && !navigatedRef.current) {
+        navigatedRef.current = true;
+        navigate("/");
+      }
     });
 
     // Cleanup safely

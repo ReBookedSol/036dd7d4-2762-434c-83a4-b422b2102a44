@@ -31,39 +31,92 @@ serve(async (req) => {
       });
     }
 
-    const body = {
-      model: "gpt-5-mini-2025-08-07",
-      messages: [
-        { role: "system", content: "You are a helpful study assistant for past papers and subjects. You help students with their academic questions, provide explanations, and guide them through learning materials." },
-        ...messages
-      ],
-      max_completion_tokens: 500,
-      stream: stream
+    // Build messages with a helpful system prompt
+    const baseMessages = [
+      { role: "system", content: "You are a helpful study assistant for past papers and subjects. You help students with their academic questions, provide explanations, and guide them through learning materials." },
+      ...messages
+    ];
+
+    // Prefer user's requested models first, but fallback to widely available ones
+    const preferredModels = [
+      "gpt-5-mini-2025-08-07", // may not be available on all projects
+      "gpt-5-mini",            // alternate alias
+      "gpt-4.1-2025-04-14",    // newer API surface (uses max_completion_tokens)
+      "o4-mini-2025-04-16",    // newer API surface
+      "gpt-4o-mini",           // legacy but broadly available
+      "gpt-4o"                 // legacy more capable
+    ];
+
+    const buildBody = (model: string) => {
+      // Newer models require max_completion_tokens and do not support temperature
+      const usesNewerParams = /^(gpt-5|o[34]|gpt-4\.1)/.test(model);
+      const common = {
+        model,
+        messages: baseMessages,
+        stream: stream
+      } as any;
+
+      if (usesNewerParams) {
+        common.max_completion_tokens = 500;
+      } else {
+        // Legacy models use max_tokens
+        common.max_tokens = 500;
+        // Intentionally omit temperature here to keep behavior consistent
+      }
+      return common;
     };
 
-    const response = await fetch("https://api.openai.com/v1/chat/completions", {
-      method: "POST",
-      headers: {
-        Authorization: `Bearer ${OPENAI_API_KEY}`,
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(body),
-    });
+    let response: Response | null = null;
+    let chosenModel = "";
+    let lastErrorText = "";
 
-    if (!response.ok) {
-      const err = await response.text();
-      console.error("OpenAI error:", err);
-      return new Response(JSON.stringify({ error: "OpenAI request failed" }), {
+    for (const model of preferredModels) {
+      const body = buildBody(model);
+      const res = await fetch("https://api.openai.com/v1/chat/completions", {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${OPENAI_API_KEY}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(body),
+      });
+
+      if (res.ok) {
+        response = res;
+        chosenModel = model;
+        break;
+      }
+
+      const errText = await res.text();
+      lastErrorText = errText;
+      console.error(`OpenAI error with model ${model}:`, errText);
+
+      // Retry with next model only for model-related errors
+      try {
+        const parsed = JSON.parse(errText);
+        const msg = parsed?.error?.message || "";
+        const code = parsed?.error?.code || "";
+        if (!(code === "model_not_found" || /model/i.test(msg))) {
+          // Not a model availability issue; break and surface error
+          break;
+        }
+      } catch (_) {
+        // If we can't parse, attempt next model once
+      }
+    }
+
+    if (!response) {
+      return new Response(JSON.stringify({ error: "OpenAI request failed", details: lastErrorText?.slice(0, 500) }), {
         status: 500,
         headers: { ...corsHeaders, "Content-Type": "application/json" },
       });
     }
 
     if (stream) {
-      // Handle streaming response
+      // Handle streaming response (SSE from OpenAI) and relay as a simple text stream
       const readableStream = new ReadableStream({
         async start(controller) {
-          const reader = response.body?.getReader();
+          const reader = response!.body?.getReader();
           if (!reader) return;
 
           try {
@@ -73,7 +126,7 @@ serve(async (req) => {
 
               const chunk = new TextDecoder().decode(value);
               const lines = chunk.split('\n');
-              
+
               for (const line of lines) {
                 if (line.startsWith('data: ')) {
                   const data = line.slice(6);
@@ -87,8 +140,8 @@ serve(async (req) => {
                     if (content) {
                       controller.enqueue(new TextEncoder().encode(content));
                     }
-                  } catch (e) {
-                    // Skip invalid JSON
+                  } catch (_) {
+                    // ignore non-JSON keep-alives
                   }
                 }
               }
@@ -102,9 +155,10 @@ serve(async (req) => {
 
       return new Response(readableStream, {
         headers: { 
-          ...corsHeaders, 
+          ...corsHeaders,
           "Content-Type": "text/plain; charset=utf-8",
-          "Transfer-Encoding": "chunked"
+          "Transfer-Encoding": "chunked",
+          "X-Model-Used": chosenModel
         },
       });
     } else {
@@ -112,7 +166,7 @@ serve(async (req) => {
       const data = await response.json();
       const reply = data?.choices?.[0]?.message?.content ?? "I couldn't generate a response.";
 
-      return new Response(JSON.stringify({ reply }), {
+      return new Response(JSON.stringify({ reply, model: chosenModel }), {
         headers: { ...corsHeaders, "Content-Type": "application/json" },
       });
     }

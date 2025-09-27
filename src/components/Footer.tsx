@@ -89,8 +89,8 @@ export const Footer = () => {
             © {new Date().getFullYear()} ReBooked Genius. All rights reserved.
           </p>
           <div className="flex space-x-6 mt-4 md:mt-0">
-            <a href="#" className="text-sm text-background/80 hover:text-background transition-colors">Privacy</a>
-            <a href="#" className="text-sm text-background/80 hover:text-background transition-colors">Terms</a>
+            <a href="/privacy" className="text-sm text-background/80 hover:text-background transition-colors">Privacy</a>
+            <a href="/terms" className="text-sm text-background/80 hover:text-background transition-colors">Terms</a>
             <a href="#" className="text-sm text-background/80 hover:text-background transition-colors">Cookies</a>
           </div>
         </div>

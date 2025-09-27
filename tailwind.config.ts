@@ -47,6 +47,17 @@ export default {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
+        /* ReBooked Genius Brand Colors */
+        brand: {
+          teal: "hsl(var(--brand-teal))",
+          "teal-dark": "hsl(var(--brand-teal-dark))",
+          "teal-light": "hsl(var(--brand-teal-light))",
+          "teal-pale": "hsl(var(--brand-teal-pale))",
+        },
+        text: {
+          hero: "hsl(var(--text-hero))",
+          muted: "hsl(var(--text-muted))",
+        },
         sidebar: {
           DEFAULT: "hsl(var(--sidebar-background))",
           foreground: "hsl(var(--sidebar-foreground))",

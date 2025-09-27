@@ -28,16 +28,22 @@ const Chatbot = () => {
     const text = input.trim();
     if (!text) return;
 
-    setMessages((prev) => [...prev, { role: "user", content: text }]);
+    const newUserMessage: ChatMessage = { role: "user", content: text };
+    const updatedMessages = [...messages, newUserMessage];
+    
+    setMessages(updatedMessages);
     setInput("");
     setLoading(true);
 
     try {
       const { data, error } = await supabase.functions.invoke("ai-chat", {
-        body: { prompt: text },
+        body: { messages: updatedMessages },
       });
 
-      if (error) throw error;
+      if (error) {
+        console.error("Supabase function error:", error);
+        throw error;
+      }
 
       const reply = data?.reply ?? "Sorry, I couldn't generate a response.";
       setMessages((prev) => [...prev, { role: "assistant", content: reply }]);

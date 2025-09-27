@@ -24,32 +24,43 @@ const Profile = () => {
 
   useEffect(() => {
     const getProfile = async () => {
-      const { data: { session } } = await supabase.auth.getSession();
-      
-      if (!session) {
-        navigate("/auth");
-        return;
+      try {
+        const { data: { session } } = await supabase.auth.getSession();
+        
+        if (!session) {
+          navigate("/auth");
+          return;
+        }
+
+        const { data, error } = await supabase
+          .from("profiles")
+          .select("*")
+          .eq("user_id", session.user.id)
+          .maybeSingle();
+
+        if (error) {
+          console.error("Error loading profile:", error);
+          toast({
+            title: "Error",
+            description: "Failed to load profile data.",
+            variant: "destructive",
+          });
+          return;
+        }
+
+        if (data) {
+          setProfile(data);
+          setFullName(data.full_name || "");
+          setGrade(data.grade || "");
+          setSchool(data.school || "");
+        }
+      } catch (error) {
+        console.error("Profile fetch error:", error);
       }
-
-      const { data, error } = await supabase
-        .from("profiles")
-        .select("*")
-        .eq("user_id", session.user.id)
-        .single();
-
-      if (error) {
-        console.error("Error loading profile:", error);
-        return;
-      }
-
-      setProfile(data);
-      setFullName(data.full_name || "");
-      setGrade(data.grade || "");
-      setSchool(data.school || "");
     };
 
     getProfile();
-  }, [navigate]);
+  }, [navigate, toast]);
 
   const handleUpdateProfile = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -60,14 +71,20 @@ const Profile = () => {
       
       if (!session) throw new Error("No session");
 
-      const { error } = await supabase
+      const { data, error } = await supabase
         .from("profiles")
         .update({
           full_name: fullName,
           grade,
           school,
         })
-        .eq("user_id", session.user.id);
+        .eq("user_id", session.user.id)
+        .select()
+        .single();
+
+      if (data) {
+        setProfile(data);
+      }
 
       if (error) throw error;
 

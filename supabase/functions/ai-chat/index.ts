@@ -25,13 +25,18 @@ serve(async (req) => {
     const { prompt, messages } = await req.json();
 
     const body = messages && Array.isArray(messages)
-      ? { model: "gpt-4o-mini", messages }
+      ? { 
+          model: "gpt-5-mini-2025-08-07", 
+          messages,
+          max_completion_tokens: 500
+        }
       : {
-          model: "gpt-4o-mini",
+          model: "gpt-5-mini-2025-08-07",
           messages: [
-            { role: "system", content: "You are a helpful study assistant for past papers and subjects." },
+            { role: "system", content: "You are a helpful study assistant for past papers and subjects. You help students with their academic questions, provide explanations, and guide them through learning materials." },
             { role: "user", content: String(prompt ?? "Say hello") },
           ],
+          max_completion_tokens: 500
         };
 
     const response = await fetch("https://api.openai.com/v1/chat/completions", {

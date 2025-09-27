@@ -1,11 +1,11 @@
-import { useState, useEffect } from "react";
-import { supabase } from "@/integrations/supabase/client";
+import { useEffect } from "react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Badge } from "@/components/ui/badge";
 import { Navbar } from "@/components/ui/navbar";
 import { useNavigate } from "react-router-dom";
 import { Users, FileText, BarChart3, MessageSquare, Flag, Gift, CreditCard, Download } from "lucide-react";
+import { useAuth } from "@/hooks/useAuth";
 import { AdminDashboard } from "@/components/admin/AdminDashboard";
 import { UserManagement } from "@/components/admin/UserManagement";
 import { PaperManagement } from "@/components/admin/PaperManagement";
@@ -16,36 +16,22 @@ import { PromoCodeManagement } from "@/components/admin/PromoCodeManagement";
 import { SubscriptionManagement } from "@/components/admin/SubscriptionManagement";
 
 const Admin = () => {
-  const [isAdmin, setIsAdmin] = useState(false);
-  const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
+  const { user, profile, loading, isAdmin } = useAuth();
 
   useEffect(() => {
-    const checkAdminStatus = async () => {
-      const { data: { session } } = await supabase.auth.getSession();
-      
-      if (!session) {
+    if (!loading) {
+      if (!user) {
         navigate("/auth");
         return;
       }
-
-      const { data: profile, error } = await supabase
-        .from("profiles")
-        .select("role")
-        .eq("user_id", session.user.id)
-        .single();
-
-      if (error || !profile || profile.role !== "admin") {
+      
+      if (!isAdmin) {
         navigate("/");
         return;
       }
-
-      setIsAdmin(true);
-      setLoading(false);
-    };
-
-    checkAdminStatus();
-  }, [navigate]);
+    }
+  }, [loading, user, isAdmin, navigate]);
 
   if (loading) {
     return (
@@ -58,7 +44,7 @@ const Admin = () => {
     );
   }
 
-  if (!isAdmin) {
+  if (!loading && !isAdmin) {
     return null;
   }
 

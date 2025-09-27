@@ -9,8 +9,8 @@ export const Navbar = () => {
         <div className="flex h-16 items-center justify-between">
           {/* Logo */}
           <div className="flex items-center space-x-2">
-            <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary">
-              <span className="text-sm font-bold text-primary-foreground">RB</span>
+            <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary text-primary-foreground">
+              <BookOpen className="h-5 w-5" />
             </div>
             <div>
               <h1 className="text-lg font-bold text-foreground">ReBooked Genius</h1>

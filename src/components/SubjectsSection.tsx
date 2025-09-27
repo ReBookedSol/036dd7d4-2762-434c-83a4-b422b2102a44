@@ -130,11 +130,11 @@ export const SubjectsSection = () => {
                 <CardContent className="pt-0">
                   <div className="flex items-center justify-between">
                     <span className="text-sm font-medium text-text-muted">{subject.papers}</span>
-                    <a href="/browse-papers">
+                    <Link to="/browse-papers">
                       <Button variant="ghost" size="sm" className="h-8 px-3 text-xs">
                         Browse Papers
                       </Button>
-                    </a>
+                    </Link>
                   </div>
                 </CardContent>
               </Card>

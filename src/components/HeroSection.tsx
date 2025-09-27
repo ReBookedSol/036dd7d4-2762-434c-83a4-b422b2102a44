@@ -2,7 +2,8 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { TrendingUp, BookOpenCheck, Calendar } from "lucide-react";
-import heroImage from "@/assets/hero-study.jpg";
+
+const HERO_IMAGE_URL = "https://images.pexels.com/photos/5905959/pexels-photo-5905959.jpeg";
 
 export const HeroSection = () => {
   return (
@@ -19,7 +20,7 @@ export const HeroSection = () => {
             <div className="space-y-4">
               <h1 className="text-4xl lg:text-6xl font-bold leading-tight">
                 <span className="text-text-hero">Master Your</span><br />
-                <span className="text-primary">Exams</span> 
+                <span className="bg-gradient-to-r from-brand-teal to-brand-teal-dark bg-clip-text text-transparent">Exams</span>
                 <span className="text-text-hero"> with Past Papers</span>
               </h1>
               
@@ -71,10 +72,11 @@ export const HeroSection = () => {
           {/* Right Content - Hero Image */}
           <div className="relative">
             <div className="relative rounded-2xl overflow-hidden shadow-2xl">
-              <img 
-                src={heroImage} 
-                alt="Students studying with past papers and educational materials"
+              <img
+                src={HERO_IMAGE_URL}
+                alt="Kids diligently writing in a classroom setting with notebooks and pencils."
                 className="w-full h-[400px] lg:h-[500px] object-cover"
+                loading="eager"
               />
               
               {/* Floating Badge - Grade A+ */}

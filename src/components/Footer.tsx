@@ -53,10 +53,10 @@ export const Footer = () => {
           <div className="space-y-4">
             <h4 className="font-semibold text-background">Support</h4>
             <ul className="space-y-2">
-              <li><a href="#" className="text-sm text-background/80 hover:text-background transition-colors">Help Center</a></li>
-              <li><a href="#" className="text-sm text-background/80 hover:text-background transition-colors">Contact Us</a></li>
-              <li><a href="#" className="text-sm text-background/80 hover:text-background transition-colors">Privacy Policy</a></li>
-              <li><a href="#" className="text-sm text-background/80 hover:text-background transition-colors">Terms of Service</a></li>
+              <li><a href="/help-center" className="text-sm text-background/80 hover:text-background transition-colors">Help Center</a></li>
+              <li><a href="/contact" className="text-sm text-background/80 hover:text-background transition-colors">Contact Us</a></li>
+              <li><a href="/privacy" className="text-sm text-background/80 hover:text-background transition-colors">Privacy Policy</a></li>
+              <li><a href="/terms" className="text-sm text-background/80 hover:text-background transition-colors">Terms of Service</a></li>
             </ul>
           </div>
 

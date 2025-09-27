@@ -1,7 +1,7 @@
-import { Button } from "@/components/ui/button";
+import { Button as UIButton } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
+import { Button as UIButton } from "@/components/ui/button";
 import { TrendingUp, BookOpenCheck, Calendar } from "lucide-react";
 import { Link } from "react-router-dom";
 
@@ -33,22 +33,22 @@ export const HeroSection = () => {
             placeholder="Search by subject, grade, or year..."
             className="flex-1"
           />
-          <Button className="bg-primary hover:bg-brand-teal-dark">
+          <UIButton className="bg-primary hover:bg-brand-teal-dark">
             Find Papers
-          </Button>
+          </UIButton>
         </div>
 
         <div className="flex gap-4 mt-6">
           <Link to="/study-guides">
-            <Button size="lg" className="bg-primary hover:bg-brand-teal-dark">
+            <UIButton size="lg" className="bg-primary hover:bg-brand-teal-dark">
               <BookOpenCheck className="h-4 w-4 mr-2" />
               Start Learning
-            </Button>
+            </UIButton>
           </Link>
           <Link to="/subjects">
-            <Button variant="outline" size="lg">
+            <UIButton variant="outline" size="lg">
               Browse Subjects
-            </Button>
+            </UIButton>
           </Link>
         </div>
       </div>

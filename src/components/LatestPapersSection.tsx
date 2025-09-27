@@ -15,25 +15,21 @@ const papers = [
     title: "Mathematics Paper 1",
     subject: "Mathematics",
     grade: "Grade 12",
-    date: "November 2024",
+    date: "November 2025",
     examType: "NSC",
     paperType: "Final Exam",
-    topic: "Calculus",
     difficulty: "Advanced",
-    rating: 4.8,
     downloads: "3,420",
     isNew: true
   },
   {
     title: "Physical Sciences Paper 2 - Chemistry",
     subject: "Physical Sciences",
-    grade: "Grade 12", 
-    date: "November 2024",
+    grade: "Grade 12",
+    date: "November 2025",
     examType: "NSC",
     paperType: "Chemistry",
-    topic: "Organic",
     difficulty: "Intermediate",
-    rating: 4.7,
     downloads: "2,890",
     isNew: false
   },
@@ -41,12 +37,10 @@ const papers = [
     title: "English Home Language Paper 1",
     subject: "English",
     grade: "Grade 12",
-    date: "November 2024", 
+    date: "November 2025",
     examType: "NSC",
     paperType: "Literature",
-    topic: "Essay",
     difficulty: "Intermediate",
-    rating: 4.9,
     downloads: "4,120",
     isNew: true
   },
@@ -54,25 +48,21 @@ const papers = [
     title: "Life Sciences Paper 1",
     subject: "Life Sciences",
     grade: "Grade 12",
-    date: "September 2024",
+    date: "September 2025",
     examType: "Trial Exam",
     paperType: "Biology",
-    topic: "Genetics",
     difficulty: "Advanced",
-    rating: 4.6,
     downloads: "2,340",
     isNew: false
   },
   {
     title: "Business Studies Paper 1",
-    subject: "Business Studies", 
+    subject: "Business Studies",
     grade: "Grade 12",
-    date: "June 2024",
+    date: "June 2025",
     examType: "Mid-year",
     paperType: "Economics",
-    topic: "Management",
     difficulty: "Intermediate",
-    rating: 4.5,
     downloads: "1,890",
     isNew: false
   },
@@ -80,12 +70,10 @@ const papers = [
     title: "Geography Paper 1 - Physical",
     subject: "Geography",
     grade: "Grade 12",
-    date: "November 2024",
+    date: "November 2025",
     examType: "NSC",
     paperType: "Physical Geography",
-    topic: "Climate",
     difficulty: "Advanced",
-    rating: 4.7,
     downloads: "1,560",
     isNew: false
   }
@@ -108,7 +96,7 @@ export const LatestPapersSection = () => {
             Latest <span className="text-primary">Past Papers</span>
           </h2>
           <p className="text-lg text-text-muted max-w-2xl mx-auto">
-            Recently added past papers from the 2024 academic year. 
+            Recently added past papers from the 2025 academic year.
             Stay updated with the latest exam formats and question types.
           </p>
         </div>
@@ -149,34 +137,22 @@ export const LatestPapersSection = () => {
                   </Badge>
                 </div>
 
-                <div className="grid grid-cols-2 gap-2 text-sm">
+                <div className="flex items-center justify-between text-sm">
                   <div>
                     <span className="text-text-muted">Type:</span>
                     <div className="font-medium">{paper.paperType}</div>
                   </div>
-                  <div>
-                    <span className="text-text-muted">Topic:</span>
-                    <div className="font-medium">{paper.topic}</div>
-                  </div>
-                </div>
-
-                <div className="flex items-center justify-between">
-                  <Badge 
-                    variant="secondary" 
-                    className={`text-xs ${getDifficultyColor(paper.difficulty)}`}
-                  >
-                    {paper.difficulty}
-                  </Badge>
-                  <div className="flex items-center gap-1 text-sm text-text-muted">
-                    <Star className="h-3 w-3 fill-yellow-400 text-yellow-400" />
-                    <span>{paper.rating}</span>
-                  </div>
-                </div>
-
-                <div className="flex items-center justify-between text-sm text-text-muted">
-                  <div className="flex items-center gap-1">
-                    <Download className="h-3 w-3" />
-                    <span>{paper.downloads}</span>
+                  <div className="flex items-center gap-2">
+                    <Badge
+                      variant="secondary"
+                      className={`text-xs ${getDifficultyColor(paper.difficulty)}`}
+                    >
+                      {paper.difficulty}
+                    </Badge>
+                    <div className="flex items-center gap-1 text-sm text-text-muted">
+                      <Download className="h-3 w-3" />
+                      <span>{paper.downloads}</span>
+                    </div>
                   </div>
                 </div>
 

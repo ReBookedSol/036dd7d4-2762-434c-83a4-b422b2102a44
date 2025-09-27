@@ -23,19 +23,25 @@ const Auth = () => {
   const { toast } = useToast();
 
   useEffect(() => {
-    const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
+    // Subscribe to auth changes and navigate when a session is available
+    const { data } = supabase.auth.onAuthStateChange((event, session) => {
       if (session) {
         navigate("/");
       }
     });
 
-    supabase.auth.getSession().then(({ data: { session } }) => {
-      if (session) {
-        navigate("/");
-      }
+    // Check initial session safely
+    supabase.auth.getSession().then((res) => {
+      const session = res?.data?.session ?? null;
+      if (session) navigate("/");
     });
 
-    return () => subscription.unsubscribe();
+    // Cleanup safely
+    return () => {
+      if (data?.subscription && typeof data.subscription.unsubscribe === "function") {
+        data.subscription.unsubscribe();
+      }
+    };
   }, [navigate]);
 
   const handleSignUp = async (e: React.FormEvent) => {
@@ -114,21 +120,33 @@ const Auth = () => {
     setLoading(true);
 
     try {
-      const { error } = await supabase.auth.signInWithPassword({
+      const { data, error } = await supabase.auth.signInWithPassword({
         email,
         password,
       });
 
       if (error) throw error;
 
+      // If we received a session immediately, navigate right away
+      if (data?.session) {
+        toast({
+          title: "Welcome back!",
+          description: "You have been signed in successfully.",
+        });
+        navigate("/");
+        return;
+      }
+
+      // Otherwise, the user might need to confirm their email (magic link / verification)
       toast({
-        title: "Welcome back!",
-        description: "You have been signed in successfully.",
+        title: "Check your email",
+        description: "Sign-in requires additional verification. Please follow the instructions sent to your email.",
       });
     } catch (error: any) {
+      console.error("Sign in error:", error);
       toast({
         title: "Error",
-        description: error.message,
+        description: error?.message ?? String(error),
         variant: "destructive",
       });
     } finally {

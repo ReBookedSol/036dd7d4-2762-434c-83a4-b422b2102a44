@@ -1,4 +1,4 @@
-import { Button } from "@/components/ui/button";
+import { Button as UIButton } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { TrendingUp, BookOpenCheck, Calendar } from "lucide-react";
@@ -32,22 +32,22 @@ export const HeroSection = () => {
             placeholder="Search by subject, grade, or year..."
             className="flex-1"
           />
-          <Button className="bg-primary hover:bg-brand-teal-dark">
+          <UIButton className="bg-primary hover:bg-brand-teal-dark">
             Find Papers
-          </Button>
+          </UIButton>
         </div>
 
         <div className="flex gap-4 mt-6">
           <Link to="/study-guides">
-            <Button size="lg" className="bg-primary hover:bg-brand-teal-dark">
+            <UIButton size="lg" className="bg-primary hover:bg-brand-teal-dark">
               <BookOpenCheck className="h-4 w-4 mr-2" />
               Start Learning
-            </Button>
+            </UIButton>
           </Link>
           <Link to="/subjects">
-            <Button variant="outline" size="lg">
+            <UIButton variant="outline" size="lg">
               Browse Subjects
-            </Button>
+            </UIButton>
           </Link>
         </div>
       </div>
@@ -59,7 +59,7 @@ export const HeroSection = () => {
             <TrendingUp className="h-4 w-4 text-primary" />
             <div>
               <div className="font-semibold text-sm">Grade A+</div>
-              <div className="text-xs text-text-muted">Average improvement</div>
+              <div className="text-xs text-text-muted">Average improvement across active learners</div>
             </div>
           </div>
         </div>
@@ -70,8 +70,8 @@ export const HeroSection = () => {
           <div className="flex items-center space-x-2">
             <Calendar className="h-4 w-4 text-primary" />
             <div>
-              <div className="font-semibold text-sm">2024 Papers</div>
-              <div className="text-xs text-text-muted">Latest available</div>
+              <div className="font-semibold text-sm">2025 Papers</div>
+              <div className="text-xs text-text-muted">Now available — latest editions</div>
             </div>
           </div>
         </div>

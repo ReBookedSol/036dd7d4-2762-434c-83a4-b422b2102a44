@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Search, Brain, Menu, X, User, Shield } from "lucide-react";
+import { Brain, Menu, X, User, Shield } from "lucide-react";
 import { useAuth } from "@/hooks/useAuth";
 import { Link } from "react-router-dom";
 
@@ -32,16 +31,8 @@ export const Navbar = () => {
             <Link to="/about" className="text-sm font-medium text-foreground hover:text-primary transition-colors">About</Link>
           </div>
 
-          {/* Search and Auth (desktop) + Mobile toggle */}
+          {/* Auth (desktop) + Mobile toggle */}
           <div className="flex items-center space-x-4">
-            <div className="relative hidden sm:block">
-              <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
-              <Input 
-                placeholder="Search past papers..."
-                className="w-64 pl-9"
-              />
-            </div>
-
             <div className="hidden md:flex items-center space-x-2">
               {user ? (
                 <>
@@ -96,11 +87,6 @@ export const Navbar = () => {
                 <Link to="/grades" className="block text-base font-medium text-foreground" onClick={() => setOpen(false)}>Grades</Link>
                 <Link to="/subjects" className="block text-base font-medium text-foreground" onClick={() => setOpen(false)}>Subjects</Link>
                 <Link to="/about" className="block text-base font-medium text-foreground" onClick={() => setOpen(false)}>About</Link>
-              </div>
-
-              <div className="relative">
-                <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
-                <Input placeholder="Search past papers..." className="pl-9" />
               </div>
 
               <div className="flex flex-col sm:flex-row sm:space-x-2 space-y-2 sm:space-y-0">

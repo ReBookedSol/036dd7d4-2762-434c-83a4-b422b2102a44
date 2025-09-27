@@ -18,8 +18,8 @@ export const Footer = () => {
                 <p className="text-xs text-background/80">Past Papers & Study Resources</p>
               </div>
             </div>
-            <p className="text-sm text-muted-foreground">
-              Access thousands of high-quality past exam papers, study guides, and resources. 
+            <p className="text-sm text-background/80">
+              Access thousands of high-quality past exam papers, study guides, and resources.
               Boost your confidence and excel in your studies.
             </p>
             <div className="flex space-x-3">

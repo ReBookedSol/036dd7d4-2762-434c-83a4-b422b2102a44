@@ -23,16 +23,16 @@ export const Footer = () => {
               Boost your confidence and excel in your studies.
             </p>
             <div className="flex space-x-3">
-              <Button variant="ghost" size="sm" className="h-8 w-8 p-0">
+              <Button variant="ghost" size="sm" className="h-8 w-8 p-0 text-background hover:bg-background/10">
                 <Facebook className="h-4 w-4" />
               </Button>
-              <Button variant="ghost" size="sm" className="h-8 w-8 p-0">
+              <Button variant="ghost" size="sm" className="h-8 w-8 p-0 text-background hover:bg-background/10">
                 <Twitter className="h-4 w-4" />
               </Button>
-              <Button variant="ghost" size="sm" className="h-8 w-8 p-0">
+              <Button variant="ghost" size="sm" className="h-8 w-8 p-0 text-background hover:bg-background/10">
                 <Instagram className="h-4 w-4" />
               </Button>
-              <Button variant="ghost" size="sm" className="h-8 w-8 p-0">
+              <Button variant="ghost" size="sm" className="h-8 w-8 p-0 text-background hover:bg-background/10">
                 <Linkedin className="h-4 w-4" />
               </Button>
             </div>

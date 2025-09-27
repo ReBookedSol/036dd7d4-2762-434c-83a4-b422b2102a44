@@ -51,7 +51,7 @@ export const Footer = () => {
 
           {/* Support */}
           <div className="space-y-4">
-            <h4 className="font-semibold text-foreground">Support</h4>
+            <h4 className="font-semibold text-background">Support</h4>
             <ul className="space-y-2">
               <li><a href="#" className="text-sm text-muted-foreground hover:text-primary transition-colors">Help Center</a></li>
               <li><a href="#" className="text-sm text-muted-foreground hover:text-primary transition-colors">Contact Us</a></li>

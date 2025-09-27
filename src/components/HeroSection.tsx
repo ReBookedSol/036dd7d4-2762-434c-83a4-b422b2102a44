@@ -7,17 +7,8 @@ const HERO_IMAGE_URL = "https://images.pexels.com/photos/5905959/pexels-photo-59
 
 export const HeroSection = () => {
   return (
-    <section className="relative overflow-hidden">
-      {/* Background image */}
-      <div className="absolute inset-0 -z-10">
-        <img
-          src={HERO_IMAGE_URL}
-          alt="Kids diligently writing in a classroom setting with notebooks and pencils."
-          className="w-full h-full object-cover"
-          loading="eager"
-        />
-        <div className="absolute inset-0 bg-gradient-to-br from-black/25 via-brand-teal-pale/20 to-black/20" />
-      </div>
+    <section className="relative overflow-hidden bg-center bg-cover" style={{ backgroundImage: `url(${HERO_IMAGE_URL})` }}>
+      <div className="absolute inset-0 bg-gradient-to-br from-black/25 via-brand-teal-pale/20 to-black/20" />
 
       <div className="relative z-10 flex flex-col items-center justify-center text-center min-h-[520px] py-24 px-4">
         <Badge variant="secondary" className="w-fit bg-brand-teal-light text-brand-teal-dark border-brand-teal/20 mb-4">

@@ -18,32 +18,32 @@ All colors MUST be HSL.
     --popover: 0 0% 100%;
     --popover-foreground: 220 20% 20%;
 
-    /* Teal Primary Brand Colors */
-    --primary: 180 60% 45%;
+    /* Darker Teal Primary Brand Colors - Matching Reference */
+    --primary: 180 65% 35%;
     --primary-foreground: 0 0% 100%;
     
     /* Secondary variations */
     --secondary: 180 35% 96%;
-    --secondary-foreground: 180 60% 25%;
+    --secondary-foreground: 180 65% 25%;
     
     --muted: 220 20% 96%;
     --muted-foreground: 220 20% 60%;
 
     --accent: 180 40% 88%;
-    --accent-foreground: 180 60% 25%;
+    --accent-foreground: 180 65% 25%;
 
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 210 40% 98%;
 
     --border: 220 20% 90%;
     --input: 220 20% 94%;
-    --ring: 180 60% 45%;
+    --ring: 180 65% 35%;
 
     --radius: 0.75rem;
     
-    /* Custom Brand Colors */
-    --brand-teal: 180 60% 45%;
-    --brand-teal-dark: 180 60% 35%;
+    /* Custom Brand Colors - Darker Teal */
+    --brand-teal: 180 65% 35%;
+    --brand-teal-dark: 180 65% 25%;
     --brand-teal-light: 180 40% 88%;
     --brand-teal-pale: 180 35% 96%;
     
@@ -81,7 +81,7 @@ All colors MUST be HSL.
     --popover: 220 25% 10%;
     --popover-foreground: 0 0% 95%;
 
-    --primary: 180 60% 50%;
+    --primary: 180 65% 40%;
     --primary-foreground: 220 25% 8%;
 
     --secondary: 220 25% 15%;
@@ -98,11 +98,11 @@ All colors MUST be HSL.
 
     --border: 220 25% 20%;
     --input: 220 25% 15%;
-    --ring: 180 60% 50%;
+    --ring: 180 65% 40%;
     
-    /* Dark mode brand colors */
-    --brand-teal: 180 60% 50%;
-    --brand-teal-dark: 180 60% 40%;
+    /* Dark mode brand colors - Darker Teal */
+    --brand-teal: 180 65% 40%;
+    --brand-teal-dark: 180 65% 30%;
     --brand-teal-light: 180 30% 25%;
     --brand-teal-pale: 180 25% 15%;
     

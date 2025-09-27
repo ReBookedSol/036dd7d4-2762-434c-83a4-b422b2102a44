@@ -2,6 +2,7 @@ import { Navbar } from "@/components/ui/navbar";
 import { HeroSection } from "@/components/HeroSection";
 import { SubjectsSection } from "@/components/SubjectsSection";
 import { LatestPapersSection } from "@/components/LatestPapersSection";
+import { Footer } from "@/components/Footer";
 
 const Index = () => {
   return (
@@ -10,6 +11,7 @@ const Index = () => {
       <HeroSection />
       <SubjectsSection />
       <LatestPapersSection />
+      <Footer />
     </div>
   );
 };

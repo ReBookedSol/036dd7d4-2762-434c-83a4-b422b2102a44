@@ -1,11 +1,13 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Search } from "lucide-react";
-import { Brain, Menu, X } from "lucide-react";
+import { Search, Brain, Menu, X, User, Shield } from "lucide-react";
+import { useAuth } from "@/hooks/useAuth";
+import { Link } from "react-router-dom";
 
 export const Navbar = () => {
   const [open, setOpen] = useState(false);
+  const { user, profile, isAdmin } = useAuth();
 
   return (
     <nav className="w-full border-b border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
@@ -41,8 +43,33 @@ export const Navbar = () => {
             </div>
 
             <div className="hidden md:flex items-center space-x-2">
-              <Button variant="ghost" size="sm">Sign In</Button>
-              <Button size="sm">Get Started</Button>
+              {user ? (
+                <>
+                  {isAdmin && (
+                    <Link to="/admin">
+                      <Button variant="outline" size="sm">
+                        <Shield className="h-4 w-4 mr-2" />
+                        Admin
+                      </Button>
+                    </Link>
+                  )}
+                  <Link to="/profile">
+                    <Button variant="outline" size="sm">
+                      <User className="h-4 w-4 mr-2" />
+                      Profile
+                    </Button>
+                  </Link>
+                </>
+              ) : (
+                <>
+                  <Link to="/auth">
+                    <Button variant="ghost" size="sm">Sign In</Button>
+                  </Link>
+                  <Link to="/auth">
+                    <Button size="sm">Get Started</Button>
+                  </Link>
+                </>
+              )}
             </div>
 
             {/* Mobile menu button */}

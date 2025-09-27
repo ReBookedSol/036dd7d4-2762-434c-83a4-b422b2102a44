@@ -54,25 +54,25 @@ export const HeroSection = () => {
       </div>
 
       {/* Floating badges */}
-      <div className="absolute bottom-8 left-8 hidden md:block">
+      <div className="absolute bottom-8 left-8 hidden md:block animate-float">
         <div className="bg-background/90 backdrop-blur-sm rounded-lg p-3 shadow-lg border border-border">
           <div className="flex items-center space-x-2">
             <TrendingUp className="h-4 w-4 text-primary" />
             <div>
               <div className="font-semibold text-sm">Grade A+</div>
-              <div className="text-xs text-text-muted">Average improvement</div>
+              <div className="text-xs text-text-muted">Average improvement across active learners</div>
             </div>
           </div>
         </div>
       </div>
 
-      <div className="absolute top-8 right-8 hidden md:block">
+      <div className="absolute top-8 right-8 hidden md:block animate-float">
         <div className="bg-background/90 backdrop-blur-sm rounded-lg p-3 shadow-lg border border-border">
           <div className="flex items-center space-x-2">
             <Calendar className="h-4 w-4 text-primary" />
             <div>
-              <div className="font-semibold text-sm">2024 Papers</div>
-              <div className="text-xs text-text-muted">Latest available</div>
+              <div className="font-semibold text-sm">2025 Papers</div>
+              <div className="text-xs text-text-muted">Now available — latest editions</div>
             </div>
           </div>
         </div>

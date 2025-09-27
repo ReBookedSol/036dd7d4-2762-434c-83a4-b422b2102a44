@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Facebook, Twitter, Instagram, Linkedin, Mail } from "lucide-react";
+import { smoothScrollToTop } from "@/lib/smoothScroll";
 
 export const Footer = () => {
   return (
@@ -42,10 +43,10 @@ export const Footer = () => {
           <div className="space-y-4">
             <h4 className="font-semibold text-background">Quick Links</h4>
             <ul className="space-y-2">
-              <li><a href="/grades" className="text-sm text-background/80 hover:text-background transition-colors smooth-scroll">Grades</a></li>
-              <li><a href="/subjects" className="text-sm text-background/80 hover:text-background transition-colors smooth-scroll">All Subjects</a></li>
-              <li><a href="/study-guides" className="text-sm text-background/80 hover:text-background transition-colors smooth-scroll">Study Guides</a></li>
-              <li><a href="/practice-tests" className="text-sm text-background/80 hover:text-background transition-colors smooth-scroll">Practice Tests</a></li>
+              <li><a href="/grades" onClick={(e) => { e.preventDefault(); smoothScrollToTop(); }} className="text-sm text-background/80 hover:text-background transition-colors smooth-scroll cursor-pointer">Grades</a></li>
+              <li><a href="/subjects" onClick={(e) => { e.preventDefault(); smoothScrollToTop(); }} className="text-sm text-background/80 hover:text-background transition-colors smooth-scroll cursor-pointer">All Subjects</a></li>
+              <li><a href="/study-guides" onClick={(e) => { e.preventDefault(); smoothScrollToTop(); }} className="text-sm text-background/80 hover:text-background transition-colors smooth-scroll cursor-pointer">Study Guides</a></li>
+              <li><a href="/practice-tests" onClick={(e) => { e.preventDefault(); smoothScrollToTop(); }} className="text-sm text-background/80 hover:text-background transition-colors smooth-scroll cursor-pointer">Practice Tests</a></li>
             </ul>
           </div>
 
@@ -53,10 +54,10 @@ export const Footer = () => {
           <div className="space-y-4">
             <h4 className="font-semibold text-background">Support</h4>
             <ul className="space-y-2">
-              <li><a href="/help-center" className="text-sm text-background/80 hover:text-background transition-colors smooth-scroll">Help Center</a></li>
-              <li><a href="/contact" className="text-sm text-background/80 hover:text-background transition-colors smooth-scroll">Contact Us</a></li>
-              <li><a href="/privacy" className="text-sm text-background/80 hover:text-background transition-colors smooth-scroll">Privacy Policy</a></li>
-              <li><a href="/terms" className="text-sm text-background/80 hover:text-background transition-colors smooth-scroll">Terms of Service</a></li>
+              <li><a href="/help-center" onClick={(e) => { e.preventDefault(); smoothScrollToTop(); }} className="text-sm text-background/80 hover:text-background transition-colors smooth-scroll cursor-pointer">Help Center</a></li>
+              <li><a href="/contact" onClick={(e) => { e.preventDefault(); smoothScrollToTop(); }} className="text-sm text-background/80 hover:text-background transition-colors smooth-scroll cursor-pointer">Contact Us</a></li>
+              <li><a href="/privacy" onClick={(e) => { e.preventDefault(); smoothScrollToTop(); }} className="text-sm text-background/80 hover:text-background transition-colors smooth-scroll cursor-pointer">Privacy Policy</a></li>
+              <li><a href="/terms" onClick={(e) => { e.preventDefault(); smoothScrollToTop(); }} className="text-sm text-background/80 hover:text-background transition-colors smooth-scroll cursor-pointer">Terms of Service</a></li>
             </ul>
           </div>
 
@@ -89,9 +90,9 @@ export const Footer = () => {
             © {new Date().getFullYear()} ReBooked Genius. All rights reserved.
           </p>
           <div className="flex space-x-6 mt-4 md:mt-0">
-            <a href="/privacy" className="text-sm text-background/80 hover:text-background transition-colors smooth-scroll">Privacy</a>
-            <a href="/terms" className="text-sm text-background/80 hover:text-background transition-colors smooth-scroll">Terms</a>
-            <a href="#" className="text-sm text-background/80 hover:text-background transition-colors smooth-scroll">Cookies</a>
+            <a href="/privacy" onClick={(e) => { e.preventDefault(); smoothScrollToTop(); }} className="text-sm text-background/80 hover:text-background transition-colors smooth-scroll cursor-pointer">Privacy</a>
+            <a href="/terms" onClick={(e) => { e.preventDefault(); smoothScrollToTop(); }} className="text-sm text-background/80 hover:text-background transition-colors smooth-scroll cursor-pointer">Terms</a>
+            <a href="#" onClick={(e) => { e.preventDefault(); smoothScrollToTop(); }} className="text-sm text-background/80 hover:text-background transition-colors smooth-scroll cursor-pointer">Cookies</a>
           </div>
         </div>
       </div>

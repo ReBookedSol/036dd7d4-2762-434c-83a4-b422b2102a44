@@ -142,6 +142,42 @@ export type Database = {
           },
         ]
       }
+      notifications: {
+        Row: {
+          active: boolean
+          created_at: string
+          created_by: string
+          expires_at: string | null
+          id: string
+          message: string
+          target_users: string[] | null
+          title: string
+          type: string
+        }
+        Insert: {
+          active?: boolean
+          created_at?: string
+          created_by: string
+          expires_at?: string | null
+          id?: string
+          message: string
+          target_users?: string[] | null
+          title: string
+          type?: string
+        }
+        Update: {
+          active?: boolean
+          created_at?: string
+          created_by?: string
+          expires_at?: string | null
+          id?: string
+          message?: string
+          target_users?: string[] | null
+          title?: string
+          type?: string
+        }
+        Relationships: []
+      }
       papers: {
         Row: {
           approved: boolean
@@ -217,6 +253,139 @@ export type Database = {
             referencedColumns: ["user_id"]
           },
         ]
+      }
+      practice_test_attempts: {
+        Row: {
+          answers: Json | null
+          completed: boolean
+          completed_at: string | null
+          id: string
+          score: number
+          started_at: string
+          test_id: string
+          time_taken: number | null
+          total_points: number
+          user_id: string
+        }
+        Insert: {
+          answers?: Json | null
+          completed?: boolean
+          completed_at?: string | null
+          id?: string
+          score?: number
+          started_at?: string
+          test_id: string
+          time_taken?: number | null
+          total_points?: number
+          user_id: string
+        }
+        Update: {
+          answers?: Json | null
+          completed?: boolean
+          completed_at?: string | null
+          id?: string
+          score?: number
+          started_at?: string
+          test_id?: string
+          time_taken?: number | null
+          total_points?: number
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "practice_test_attempts_test_id_fkey"
+            columns: ["test_id"]
+            isOneToOne: false
+            referencedRelation: "practice_tests"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      practice_test_questions: {
+        Row: {
+          correct_answer: string
+          created_at: string
+          explanation: string | null
+          id: string
+          options: Json | null
+          order_index: number
+          points: number
+          question: string
+          question_type: string
+          test_id: string
+        }
+        Insert: {
+          correct_answer: string
+          created_at?: string
+          explanation?: string | null
+          id?: string
+          options?: Json | null
+          order_index?: number
+          points?: number
+          question: string
+          question_type?: string
+          test_id: string
+        }
+        Update: {
+          correct_answer?: string
+          created_at?: string
+          explanation?: string | null
+          id?: string
+          options?: Json | null
+          order_index?: number
+          points?: number
+          question?: string
+          question_type?: string
+          test_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "practice_test_questions_test_id_fkey"
+            columns: ["test_id"]
+            isOneToOne: false
+            referencedRelation: "practice_tests"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      practice_tests: {
+        Row: {
+          created_at: string
+          created_by: string
+          difficulty: string
+          duration: number
+          grade: string
+          id: string
+          status: string
+          subject: string
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          created_by: string
+          difficulty?: string
+          duration?: number
+          grade: string
+          id?: string
+          status?: string
+          subject: string
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          created_by?: string
+          difficulty?: string
+          duration?: number
+          grade?: string
+          id?: string
+          status?: string
+          subject?: string
+          title?: string
+          updated_at?: string
+        }
+        Relationships: []
       }
       profiles: {
         Row: {
@@ -365,6 +534,35 @@ export type Database = {
             isOneToOne: false
             referencedRelation: "profiles"
             referencedColumns: ["user_id"]
+          },
+        ]
+      }
+      saved_papers: {
+        Row: {
+          id: string
+          paper_id: string
+          saved_at: string
+          user_id: string
+        }
+        Insert: {
+          id?: string
+          paper_id: string
+          saved_at?: string
+          user_id: string
+        }
+        Update: {
+          id?: string
+          paper_id?: string
+          saved_at?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "saved_papers_paper_id_fkey"
+            columns: ["paper_id"]
+            isOneToOne: false
+            referencedRelation: "papers"
+            referencedColumns: ["id"]
           },
         ]
       }

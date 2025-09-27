@@ -4,7 +4,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Badge } from "@/components/ui/badge";
 import { Navbar } from "@/components/ui/navbar";
 import { useNavigate } from "react-router-dom";
-import { Users, FileText, BarChart3, MessageSquare, Flag, Gift, CreditCard, Download } from "lucide-react";
+import { Users, FileText, BarChart3, MessageSquare, Flag, Gift, CreditCard, Download, Bell } from "lucide-react";
 import { useAuth } from "@/hooks/useAuth";
 import { AdminDashboard } from "@/components/admin/AdminDashboard";
 import { UserManagement } from "@/components/admin/UserManagement";
@@ -15,6 +15,7 @@ import { Reports } from "@/components/admin/Reports";
 import { PromoCodeManagement } from "@/components/admin/PromoCodeManagement";
 import { SubscriptionManagement } from "@/components/admin/SubscriptionManagement";
 import { PracticeTestManagement } from "@/components/admin/PracticeTestManagement";
+import { NotificationManagement } from "@/components/admin/NotificationManagement";
 
 const Admin = () => {
   const navigate = useNavigate();
@@ -59,7 +60,7 @@ const Admin = () => {
         </div>
 
         <Tabs defaultValue="dashboard" className="space-y-6">
-          <TabsList className="grid w-full grid-cols-3 lg:grid-cols-9 gap-1">
+          <TabsList className="grid w-full grid-cols-3 lg:grid-cols-10 gap-1">
             <TabsTrigger value="dashboard" className="flex items-center gap-1 text-xs">
               <BarChart3 className="h-3 w-3" />
               <span className="hidden sm:inline">Dashboard</span>
@@ -75,6 +76,10 @@ const Admin = () => {
             <TabsTrigger value="tests" className="flex items-center gap-1 text-xs">
               <Download className="h-3 w-3" />
               <span className="hidden sm:inline">Tests</span>
+            </TabsTrigger>
+            <TabsTrigger value="notifications" className="flex items-center gap-1 text-xs">
+              <Bell className="h-3 w-3" />
+              <span className="hidden sm:inline">Notify</span>
             </TabsTrigger>
             <TabsTrigger value="analytics" className="flex items-center gap-1 text-xs">
               <BarChart3 className="h-3 w-3" />
@@ -112,6 +117,10 @@ const Admin = () => {
 
           <TabsContent value="tests">
             <PracticeTestManagement />
+          </TabsContent>
+
+          <TabsContent value="notifications">
+            <NotificationManagement />
           </TabsContent>
 
           <TabsContent value="analytics">

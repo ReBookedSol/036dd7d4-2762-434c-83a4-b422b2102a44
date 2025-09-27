@@ -10,6 +10,10 @@ interface Notification {
   message: string;
   type: 'info' | 'warning' | 'success' | 'error';
   created_at: string;
+  active?: boolean;
+  expires_at?: string | null;
+  target_users?: string[] | null;
+  created_by?: string;
 }
 
 export const NotificationBar = () => {
@@ -17,20 +21,60 @@ export const NotificationBar = () => {
   const [dismissed, setDismissed] = useState<string[]>([]);
 
   useEffect(() => {
-    // For now, we'll use mock notifications
-    // In the future, this would fetch from a notifications table
-    const mockNotifications: Notification[] = [
-      {
-        id: "1",
-        title: "Welcome!",
-        message: "Welcome to ReBooked Genius! Start exploring our vast collection of past papers.",
-        type: "info",
-        created_at: new Date().toISOString()
-      }
-    ];
+    fetchNotifications();
     
-    setNotifications(mockNotifications);
+    // Set up real-time subscription for new notifications
+    const subscription = supabase
+      .channel('notifications')
+      .on('postgres_changes', 
+        { 
+          event: 'INSERT', 
+          schema: 'public', 
+          table: 'notifications' 
+        }, 
+        (payload) => {
+          const newNotification = payload.new as Notification;
+          setNotifications(prev => [newNotification, ...prev]);
+        }
+      )
+      .subscribe();
+
+    return () => {
+      supabase.removeChannel(subscription);
+    };
   }, []);
+
+  const fetchNotifications = async () => {
+    try {
+      const { data, error } = await supabase
+        .from('notifications')
+        .select('*')
+        .eq('active', true)
+        .or('expires_at.is.null,expires_at.gt.now()')
+        .order('created_at', { ascending: false })
+        .limit(3);
+
+      if (error) {
+        console.error('Error fetching notifications:', error);
+        // Fallback to mock notification for demo
+        setNotifications([{
+          id: "demo",
+          title: "Welcome!",
+          message: "Welcome to ReBooked Genius! Start exploring our vast collection of past papers.",
+          type: "info",
+          created_at: new Date().toISOString()
+        }]);
+        return;
+      }
+
+      setNotifications((data || []).map(item => ({
+        ...item,
+        type: (item.type as 'info' | 'warning' | 'success' | 'error') || 'info'
+      })));
+    } catch (error) {
+      console.error('Error in fetchNotifications:', error);
+    }
+  };
 
   const dismissNotification = (id: string) => {
     setDismissed([...dismissed, id]);

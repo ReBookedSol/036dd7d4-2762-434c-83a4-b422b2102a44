@@ -42,10 +42,10 @@ export const Footer = () => {
           <div className="space-y-4">
             <h4 className="font-semibold text-background">Quick Links</h4>
             <ul className="space-y-2">
-              <li><a href="#" className="text-sm text-muted-foreground hover:text-primary transition-colors">Browse Papers</a></li>
-              <li><a href="#" className="text-sm text-muted-foreground hover:text-primary transition-colors">All Subjects</a></li>
-              <li><a href="#" className="text-sm text-muted-foreground hover:text-primary transition-colors">Study Guides</a></li>
-              <li><a href="#" className="text-sm text-muted-foreground hover:text-primary transition-colors">Practice Tests</a></li>
+              <li><a href="#" className="text-sm text-background/80 hover:text-background transition-colors">Browse Papers</a></li>
+              <li><a href="#" className="text-sm text-background/80 hover:text-background transition-colors">All Subjects</a></li>
+              <li><a href="#" className="text-sm text-background/80 hover:text-background transition-colors">Study Guides</a></li>
+              <li><a href="#" className="text-sm text-background/80 hover:text-background transition-colors">Practice Tests</a></li>
             </ul>
           </div>
 
@@ -53,10 +53,10 @@ export const Footer = () => {
           <div className="space-y-4">
             <h4 className="font-semibold text-background">Support</h4>
             <ul className="space-y-2">
-              <li><a href="#" className="text-sm text-muted-foreground hover:text-primary transition-colors">Help Center</a></li>
-              <li><a href="#" className="text-sm text-muted-foreground hover:text-primary transition-colors">Contact Us</a></li>
-              <li><a href="#" className="text-sm text-muted-foreground hover:text-primary transition-colors">Privacy Policy</a></li>
-              <li><a href="#" className="text-sm text-muted-foreground hover:text-primary transition-colors">Terms of Service</a></li>
+              <li><a href="#" className="text-sm text-background/80 hover:text-background transition-colors">Help Center</a></li>
+              <li><a href="#" className="text-sm text-background/80 hover:text-background transition-colors">Contact Us</a></li>
+              <li><a href="#" className="text-sm text-background/80 hover:text-background transition-colors">Privacy Policy</a></li>
+              <li><a href="#" className="text-sm text-background/80 hover:text-background transition-colors">Terms of Service</a></li>
             </ul>
           </div>
 
@@ -89,9 +89,9 @@ export const Footer = () => {
             © {new Date().getFullYear()} ReBooked Genius. All rights reserved.
           </p>
           <div className="flex space-x-6 mt-4 md:mt-0">
-            <a href="#" className="text-sm text-muted-foreground hover:text-primary transition-colors">Privacy</a>
-            <a href="#" className="text-sm text-muted-foreground hover:text-primary transition-colors">Terms</a>
-            <a href="#" className="text-sm text-muted-foreground hover:text-primary transition-colors">Cookies</a>
+            <a href="#" className="text-sm text-background/80 hover:text-background transition-colors">Privacy</a>
+            <a href="#" className="text-sm text-background/80 hover:text-background transition-colors">Terms</a>
+            <a href="#" className="text-sm text-background/80 hover:text-background transition-colors">Cookies</a>
           </div>
         </div>
       </div>

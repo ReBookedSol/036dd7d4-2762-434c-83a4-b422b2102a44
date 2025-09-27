@@ -22,22 +22,24 @@ serve(async (req) => {
       });
     }
 
-    const { prompt, messages } = await req.json();
+    const { messages, stream = false } = await req.json();
 
-    const body = messages && Array.isArray(messages)
-      ? { 
-          model: "gpt-5-mini-2025-08-07", 
-          messages,
-          max_completion_tokens: 500
-        }
-      : {
-          model: "gpt-5-mini-2025-08-07",
-          messages: [
-            { role: "system", content: "You are a helpful study assistant for past papers and subjects. You help students with their academic questions, provide explanations, and guide them through learning materials." },
-            { role: "user", content: String(prompt ?? "Say hello") },
-          ],
-          max_completion_tokens: 500
-        };
+    if (!messages || !Array.isArray(messages)) {
+      return new Response(JSON.stringify({ error: "Invalid messages format" }), {
+        status: 400,
+        headers: { ...corsHeaders, "Content-Type": "application/json" },
+      });
+    }
+
+    const body = {
+      model: "gpt-5-mini-2025-08-07",
+      messages: [
+        { role: "system", content: "You are a helpful study assistant for past papers and subjects. You help students with their academic questions, provide explanations, and guide them through learning materials." },
+        ...messages
+      ],
+      max_completion_tokens: 500,
+      stream: stream
+    };
 
     const response = await fetch("https://api.openai.com/v1/chat/completions", {
       method: "POST",
@@ -57,12 +59,63 @@ serve(async (req) => {
       });
     }
 
-    const data = await response.json();
-    const reply = data?.choices?.[0]?.message?.content ?? "I couldn't generate a response.";
+    if (stream) {
+      // Handle streaming response
+      const readableStream = new ReadableStream({
+        async start(controller) {
+          const reader = response.body?.getReader();
+          if (!reader) return;
 
-    return new Response(JSON.stringify({ reply }), {
-      headers: { ...corsHeaders, "Content-Type": "application/json" },
-    });
+          try {
+            while (true) {
+              const { done, value } = await reader.read();
+              if (done) break;
+
+              const chunk = new TextDecoder().decode(value);
+              const lines = chunk.split('\n');
+              
+              for (const line of lines) {
+                if (line.startsWith('data: ')) {
+                  const data = line.slice(6);
+                  if (data === '[DONE]') {
+                    controller.close();
+                    return;
+                  }
+                  try {
+                    const parsed = JSON.parse(data);
+                    const content = parsed.choices?.[0]?.delta?.content;
+                    if (content) {
+                      controller.enqueue(new TextEncoder().encode(content));
+                    }
+                  } catch (e) {
+                    // Skip invalid JSON
+                  }
+                }
+              }
+            }
+          } catch (error) {
+            console.error("Streaming error:", error);
+            controller.error(error);
+          }
+        },
+      });
+
+      return new Response(readableStream, {
+        headers: { 
+          ...corsHeaders, 
+          "Content-Type": "text/plain; charset=utf-8",
+          "Transfer-Encoding": "chunked"
+        },
+      });
+    } else {
+      // Handle non-streaming response
+      const data = await response.json();
+      const reply = data?.choices?.[0]?.message?.content ?? "I couldn't generate a response.";
+
+      return new Response(JSON.stringify({ reply }), {
+        headers: { ...corsHeaders, "Content-Type": "application/json" },
+      });
+    }
   } catch (error: any) {
     console.error("ai-chat function error:", error);
     return new Response(JSON.stringify({ error: error?.message ?? "Unknown error" }), {

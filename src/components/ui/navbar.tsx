@@ -104,8 +104,12 @@ export const Navbar = () => {
               </div>
 
               <div className="flex flex-col sm:flex-row sm:space-x-2 space-y-2 sm:space-y-0">
-                <Button variant="ghost">Sign In</Button>
-                <Button>Get Started</Button>
+                <Link to="/auth" onClick={() => setOpen(false)}>
+                  <Button variant="ghost" className="w-full sm:w-auto">Sign In</Button>
+                </Link>
+                <Link to="/auth" onClick={() => setOpen(false)}>
+                  <Button className="w-full sm:w-auto">Get Started</Button>
+                </Link>
               </div>
             </div>
           </div>

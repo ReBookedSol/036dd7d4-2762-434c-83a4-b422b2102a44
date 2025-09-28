@@ -1,6 +1,5 @@
 import { Navbar } from "@/components/ui/navbar";
 import { Footer } from "@/components/Footer";
-import { Navbar } from "@/components/ui/navbar";
 import { Card, CardContent } from "@/components/ui/card";
 
 const Privacy = () => {

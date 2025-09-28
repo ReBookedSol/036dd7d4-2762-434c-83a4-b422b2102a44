@@ -5,7 +5,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/components/ui/use-toast";
-import { FileText, Check, X, Eye, Loader2 } from "lucide-react";
+import { FileText, Check, X, Eye, Loader2, Download } from "lucide-react";
 import { BulkUpload } from "./BulkUpload";
 
 interface Paper {

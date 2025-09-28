@@ -178,6 +178,49 @@ const SubjectResources = () => {
           </div>
         </div>
       )}
+
+      {/* Lesson modal */}
+      {lessonOpen && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4">
+          <div className="bg-background w-full max-w-3xl max-h-[85vh] rounded shadow-lg overflow-auto">
+            <div className="flex items-center justify-between p-3 border-b border-border">
+              <div className="font-semibold">{lessonOpen.title}</div>
+              <div className="flex items-center gap-2">
+                <Button variant="ghost" onClick={() => setLessonOpen(null)}>Close</Button>
+              </div>
+            </div>
+            <div className="p-4">
+              <p className="text-sm text-muted-foreground mb-4">Lesson activities and resources. Complete activities to track progress.</p>
+              {lessonLoading ? (
+                <p>Loading...</p>
+              ) : (
+                <div className="space-y-4">
+                  {lessonFiles.length === 0 ? (
+                    <p className="text-muted-foreground">No lesson resources yet.</p>
+                  ) : (
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                      {lessonFiles.map((f) => (
+                        <Card key={f.name} className="p-3">
+                          <div className="flex items-center justify-between">
+                            <div>
+                              <div className="font-medium">{f.name}</div>
+                              <div className="text-xs text-muted-foreground">{f.metadata?.size ? `${Math.round(f.metadata.size/1024)} KB` : ''}</div>
+                            </div>
+                            <div className="flex items-center gap-2">
+                              <Button size="sm" variant="outline" onClick={() => { const url = supabase.storage.from(BUCKET).getPublicUrl(`${slug}/lessons/lesson-${lessonOpen.id}/${f.name}`).data.publicUrl; window.open(url, '_blank', 'noopener,noreferrer'); }}>Preview</Button>
+                              <a href={supabase.storage.from(BUCKET).getPublicUrl(`${slug}/lessons/lesson-${lessonOpen.id}/${f.name}`).data.publicUrl} target="_blank" rel="noreferrer"><Button size="sm">Download</Button></a>
+                            </div>
+                          </div>
+                        </Card>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

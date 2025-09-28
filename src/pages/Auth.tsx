@@ -206,9 +206,6 @@ const Auth = () => {
             </TabsContent>
             
             <TabsContent value="signup">
-              <div className="text-xs text-muted-foreground mb-2">
-                By creating an account, you agree to ReBooked Genius’s <Link to="/terms" className="underline">Terms and Conditions</Link>.
-              </div>
               <form onSubmit={handleSignUp} className="space-y-4">
                 <div className="space-y-2">
                   <Label htmlFor="signup-name">Full Name</Label>

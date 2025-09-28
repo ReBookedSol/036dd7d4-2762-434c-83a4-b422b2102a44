@@ -16,10 +16,6 @@ const SubjectResources = () => {
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
   const [previewName, setPreviewName] = useState<string | null>(null);
 
-  // Lesson modal state
-  const [lessonOpen, setLessonOpen] = useState<{ id: number; title: string } | null>(null);
-  const [lessonFiles, setLessonFiles] = useState<any[]>([]);
-  const [lessonLoading, setLessonLoading] = useState(false);
 
   useEffect(() => {
     if (!slug) return;
@@ -72,46 +68,32 @@ const SubjectResources = () => {
           <p className="text-lg text-text-muted max-w-2xl mx-auto">Explore available papers and resources. Click Preview to view files or Download to save a copy.</p>
         </div>
 
-        {/* Lessons / Modules section (Duolingo-like progression) */}
+        {/* Lessons / Modules section (roadmap) */}
         <div className="mb-8">
           <h2 className="text-2xl font-semibold text-center mb-4">Lessons</h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 max-w-4xl mx-auto">
-            {Array.from({ length: 6 }).map((_, i) => {
-              const lessonId = i + 1;
-              return (
-                <Card key={`lesson-${lessonId}`} className="group hover:shadow-lg transition-all p-4">
-                  <CardHeader>
-                    <CardTitle className="text-base">Lesson {lessonId}</CardTitle>
-                    <CardDescription className="text-xs text-text-muted">Core topic and practice activities</CardDescription>
-                  </CardHeader>
-                  <CardContent>
-                    <div className="flex items-center justify-between">
-                      <div className="text-sm text-muted-foreground">Approx. 20 min</div>
-                      <Button size="sm" onClick={async () => {
-                        // open lesson modal and fetch lesson files
-                        const lessonPath = `${slug}/lessons/lesson-${lessonId}/`;
-                        setLessonLoading(true);
-                        setLessonOpen({ id: lessonId, title: `Lesson ${lessonId}` });
-                        try {
-                          const { data: lessonFiles, error } = await supabase.storage.from(BUCKET).list(lessonPath, { limit: 100 });
-                          if (error) {
-                            console.error('Error listing lesson files', error);
-                            setLessonFiles([]);
-                          } else {
-                            setLessonFiles(lessonFiles || []);
-                          }
-                        } catch (e) {
-                          console.error(e);
-                          setLessonFiles([]);
-                        } finally {
-                          setLessonLoading(false);
-                        }
-                      }}>Start Lesson</Button>
-                    </div>
-                  </CardContent>
-                </Card>
-              );
-            })}
+          <div className="relative max-w-5xl mx-auto">
+            <div className="absolute left-1/2 -translate-x-1/2 top-8 bottom-8 w-1 bg-muted hidden md:block" />
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              {Array.from({ length: 6 }).map((_, i) => {
+                const lessonId = i + 1;
+                return (
+                  <Link key={`lesson-${lessonId}`} to={`/subjects/${slug}/lessons/${lessonId}`} className="block">
+                    <Card className="group hover:shadow-lg transition-all p-4 relative">
+                      <CardHeader>
+                        <CardTitle className="text-base">Lesson {lessonId}</CardTitle>
+                        <CardDescription className="text-xs text-text-muted">Core topic and practice activities</CardDescription>
+                      </CardHeader>
+                      <CardContent>
+                        <div className="flex items-center justify-between">
+                          <div className="text-sm text-muted-foreground">Approx. 20 min</div>
+                          <Button size="sm" variant="secondary">Open</Button>
+                        </div>
+                      </CardContent>
+                    </Card>
+                  </Link>
+                );
+              })}
+            </div>
           </div>
         </div>
 
@@ -179,48 +161,6 @@ const SubjectResources = () => {
         </div>
       )}
 
-      {/* Lesson modal */}
-      {lessonOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4">
-          <div className="bg-background w-full max-w-3xl max-h-[85vh] rounded shadow-lg overflow-auto">
-            <div className="flex items-center justify-between p-3 border-b border-border">
-              <div className="font-semibold">{lessonOpen.title}</div>
-              <div className="flex items-center gap-2">
-                <Button variant="ghost" onClick={() => setLessonOpen(null)}>Close</Button>
-              </div>
-            </div>
-            <div className="p-4">
-              <p className="text-sm text-muted-foreground mb-4">Lesson activities and resources. Complete activities to track progress.</p>
-              {lessonLoading ? (
-                <p>Loading...</p>
-              ) : (
-                <div className="space-y-4">
-                  {lessonFiles.length === 0 ? (
-                    <p className="text-muted-foreground">No lesson resources yet.</p>
-                  ) : (
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                      {lessonFiles.map((f) => (
-                        <Card key={f.name} className="p-3">
-                          <div className="flex items-center justify-between">
-                            <div>
-                              <div className="font-medium">{f.name}</div>
-                              <div className="text-xs text-muted-foreground">{f.metadata?.size ? `${Math.round(f.metadata.size/1024)} KB` : ''}</div>
-                            </div>
-                            <div className="flex items-center gap-2">
-                              <Button size="sm" variant="outline" onClick={() => { const url = supabase.storage.from(BUCKET).getPublicUrl(`${slug}/lessons/lesson-${lessonOpen.id}/${f.name}`).data.publicUrl; window.open(url, '_blank', 'noopener,noreferrer'); }}>Preview</Button>
-                              <a href={supabase.storage.from(BUCKET).getPublicUrl(`${slug}/lessons/lesson-${lessonOpen.id}/${f.name}`).data.publicUrl} target="_blank" rel="noreferrer"><Button size="sm">Download</Button></a>
-                            </div>
-                          </div>
-                        </Card>
-                      ))}
-                    </div>
-                  )}
-                </div>
-              )}
-            </div>
-          </div>
-        </div>
-      )}
     </div>
   );
 };

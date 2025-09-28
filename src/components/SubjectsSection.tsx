@@ -105,29 +105,22 @@ export const SubjectsSection = () => {
             const IconComponent = subject.icon;
             const slug = slugify(subject.title);
             return (
-              <Card key={index} className="group hover:shadow-lg transition-all duration-200 hover:scale-[1.02] border-border/50">
-                <CardHeader className="pb-3">
-                  <div className="flex items-center justify-between">
-                    <IconComponent className={`h-8 w-8 ${subject.color}`} />
-                    <ArrowRight className="h-4 w-4 text-muted-foreground group-hover:text-primary group-hover:translate-x-1 transition-all" />
-                  </div>
-                  <CardTitle className="text-lg group-hover:text-primary transition-colors">
-                    {subject.title}
-                  </CardTitle>
-                  <CardDescription className="text-sm">
-                    {subject.description}
-                  </CardDescription>
-                </CardHeader>
-                <CardContent className="pt-0">
-                  <div className="flex items-center justify-end">
-                    <Link to={`/subjects/${slug}`}>
-                      <Button variant="ghost" size="sm" className="h-8 px-3 text-xs">
-                        View Resources
-                      </Button>
-                    </Link>
-                  </div>
-                </CardContent>
-              </Card>
+              <Link to={`/subjects/${slug}`} className="block">
+                <Card key={index} className="group hover:shadow-lg transition-all duration-200 hover:scale-[1.02] border-border/50">
+                  <CardHeader className="pb-3">
+                    <div className="flex items-center justify-between">
+                      <IconComponent className={`h-8 w-8 ${subject.color}`} />
+                      <ArrowRight className="h-4 w-4 text-muted-foreground group-hover:text-primary group-hover:translate-x-1 transition-all" />
+                    </div>
+                    <CardTitle className="text-lg group-hover:text-primary transition-colors">
+                      {subject.title}
+                    </CardTitle>
+                    <CardDescription className="text-sm">
+                      {subject.description}
+                    </CardDescription>
+                  </CardHeader>
+                </Card>
+              </Link>
             );
           })}
         </div>

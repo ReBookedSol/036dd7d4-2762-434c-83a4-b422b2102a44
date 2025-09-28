@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { Facebook, Twitter, Instagram, Linkedin, Mail, Brain } from "lucide-react";
+import { Facebook, Instagram, Linkedin, Mail, Brain, Tiktok } from "lucide-react";
 import { Link } from "react-router-dom";
 
 export const Footer = () => {
@@ -26,7 +26,7 @@ export const Footer = () => {
                 <Facebook className="h-4 w-4" />
               </Button>
               <Button variant="ghost" size="sm" className="h-8 w-8 p-0 text-background hover:bg-background/10">
-                <Twitter className="h-4 w-4" />
+                <Tiktok className="h-4 w-4" />
               </Button>
               <Button variant="ghost" size="sm" className="h-8 w-8 p-0 text-background hover:bg-background/10">
                 <Instagram className="h-4 w-4" />

@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Brain, Menu, X, User, Shield } from "lucide-react";
 import { useAuth } from "@/hooks/useAuth";
 import { Link } from "react-router-dom";
+import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 
 export const Navbar = () => {
   const [open, setOpen] = useState(false);
@@ -63,72 +64,70 @@ export const Navbar = () => {
               )}
             </div>
 
-            {/* Mobile menu button */}
+            {/* Mobile menu drawer */}
             <div className="md:hidden">
-              <button
-                aria-label={open ? "Close menu" : "Open menu"}
-                onClick={() => setOpen(!open)}
-                className="inline-flex items-center justify-center p-2 rounded-md text-muted-foreground hover:bg-muted/20"
-              >
-                {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
-              </button>
+              <Sheet open={open} onOpenChange={setOpen}>
+                <SheetTrigger asChild>
+                  <button aria-label={open ? "Close menu" : "Open menu"} className="inline-flex items-center justify-center p-2 rounded-md text-muted-foreground hover:bg-muted/20">
+                    {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+                  </button>
+                </SheetTrigger>
+                <SheetContent side="left" className="w-[320px] sm:w-[360px] p-0">
+                  <div className="p-4 border-b border-border">
+                    <Link to="/" onClick={() => setOpen(false)} className="flex items-center space-x-2">
+                      <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary text-primary-foreground">
+                        <Brain className="h-5 w-5" />
+                      </div>
+                      <div>
+                        <h2 className="text-base font-bold">ReBooked Genius</h2>
+                        <p className="text-xs text-muted-foreground">Past Papers & Study Resources</p>
+                      </div>
+                    </Link>
+                  </div>
+                  <nav className="p-4 grid gap-2">
+                    <Link to="/nbt" onClick={() => setOpen(false)} className="w-full">
+                      <Button variant="ghost" className="w-full justify-start">NBT</Button>
+                    </Link>
+                    <Link to="/grades" onClick={() => setOpen(false)} className="w-full">
+                      <Button variant="ghost" className="w-full justify-start">Grades</Button>
+                    </Link>
+                    <Link to="/subjects" onClick={() => setOpen(false)} className="w-full">
+                      <Button variant="ghost" className="w-full justify-start">Learning Center</Button>
+                    </Link>
+                    <Link to="/about" onClick={() => setOpen(false)} className="w-full">
+                      <Button variant="ghost" className="w-full justify-start">About</Button>
+                    </Link>
+
+                    <div className="border-t border-border my-2" />
+                    {user ? (
+                      <>
+                        {isAdmin && (
+                          <Link to="/admin" onClick={() => setOpen(false)} className="w-full">
+                            <Button variant="outline" className="w-full justify-start">Admin</Button>
+                          </Link>
+                        )}
+                        <Link to="/profile" onClick={() => setOpen(false)} className="w-full">
+                          <Button variant="outline" className="w-full justify-start">Profile</Button>
+                        </Link>
+                      </>
+                    ) : (
+                      <>
+                        <Link to="/auth" onClick={() => setOpen(false)} className="w-full">
+                          <Button variant="ghost" className="w-full justify-start">Sign In</Button>
+                        </Link>
+                        <Link to="/auth" onClick={() => setOpen(false)} className="w-full">
+                          <Button className="w-full justify-start">Get Started</Button>
+                        </Link>
+                      </>
+                    )}
+                  </nav>
+                </SheetContent>
+              </Sheet>
             </div>
           </div>
         </div>
       </div>
 
-      {/* Mobile Menu as full-screen centered overlay */}
-      {open && (
-        <div className="md:hidden fixed inset-0 z-50 flex items-center justify-center bg-black/40 p-4">
-          <div className="bg-background w-full max-w-md max-h-[90vh] p-4 overflow-auto rounded-lg shadow-lg relative mx-2">
-            {/* Close X top-right */}
-            <button aria-label="Close menu" onClick={() => setOpen(false)} className="absolute right-3 top-3 p-2 rounded-full text-muted-foreground hover:bg-muted/10">
-              <X className="h-5 w-5" />
-            </button>
-
-            <div className="flex flex-col items-center space-y-3 mt-4">
-              <Link to="/nbt" onClick={() => setOpen(false)} className="w-full">
-                <Button className="w-full py-3 text-sm">NBT</Button>
-              </Link>
-              <Link to="/grades" onClick={() => setOpen(false)} className="w-full">
-                <Button className="w-full py-3 text-sm">Grades</Button>
-              </Link>
-              <Link to="/subjects" onClick={() => setOpen(false)} className="w-full">
-                <Button className="w-full py-3 text-sm">Learning Center</Button>
-              </Link>
-              <Link to="/about" onClick={() => setOpen(false)} className="w-full">
-                <Button className="w-full py-3 text-sm">About</Button>
-              </Link>
-
-              <div className="w-full border-t border-border pt-4 space-y-3">
-                {user ? (
-                  <>
-                    {isAdmin && (
-                      <Link to="/admin" onClick={() => setOpen(false)}>
-                        <Button variant="outline" className="w-full py-2 text-sm">Admin</Button>
-                      </Link>
-                    )}
-                    <Link to="/profile" onClick={() => setOpen(false)}>
-                      <Button variant="outline" className="w-full py-2 text-sm">Profile</Button>
-                    </Link>
-                    <Button variant="ghost" className="w-full py-2 text-sm" onClick={() => setOpen(false)}>Close</Button>
-                  </>
-                ) : (
-                  <>
-                    <Link to="/auth" onClick={() => setOpen(false)}>
-                      <Button variant="ghost" className="w-full py-2 text-sm">Sign In</Button>
-                    </Link>
-                    <Link to="/auth" onClick={() => setOpen(false)}>
-                      <Button className="w-full py-2 text-sm">Get Started</Button>
-                    </Link>
-                    <Button variant="ghost" className="w-full py-2 text-sm" onClick={() => setOpen(false)}>Close</Button>
-                  </>
-                )}
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
     </nav>
   );
 };

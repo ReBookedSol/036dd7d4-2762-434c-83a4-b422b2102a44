@@ -20,6 +20,7 @@ import StudyGuides from "./pages/StudyGuides";
 import ForgotPassword from "./pages/ForgotPassword";
 import PracticeTests from "./pages/PracticeTests";
 import SubjectResources from "./pages/SubjectResources";
+import SubjectLesson from "./pages/SubjectLesson";
 import HelpCenter from "./pages/HelpCenter";
 import NBT from "./pages/NBT";
 import Pricing from "./pages/Pricing";
@@ -55,6 +56,7 @@ const App = () => (
           <Route path="/practice-tests" element={<PracticeTests />} />
           <Route path="/forgot-password" element={<ForgotPassword />} />
           <Route path="/subjects/:slug" element={<SubjectResources />} />
+          <Route path="/subjects/:slug/lessons/:lessonId" element={<SubjectLesson />} />
           <Route path="/help-center" element={<HelpCenter />} />
           <Route path="/nbt" element={<NBT />} />
           <Route path="/pricing" element={<Pricing />} />

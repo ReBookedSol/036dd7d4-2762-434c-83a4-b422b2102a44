@@ -27,7 +27,7 @@ export const Navbar = () => {
           <div className="hidden md:flex items-center space-x-8">
             <Link to="/" className="text-sm font-medium text-foreground hover:text-primary transition-colors">Home</Link>
             <Link to="/grades" className="text-sm font-medium text-foreground hover:text-primary transition-colors">Grades</Link>
-            <Link to="/subjects" className="text-sm font-medium text-foreground hover:text-primary transition-colors">Subjects</Link>
+            <Link to="/subjects" className="text-sm font-medium text-foreground hover:text-primary transition-colors">Learning Center</Link>
             <Link to="/about" className="text-sm font-medium text-foreground hover:text-primary transition-colors">About</Link>
           </div>
 
@@ -77,15 +77,15 @@ export const Navbar = () => {
         </div>
       </div>
 
-      {/* Mobile Menu */}
-      {open && (
-        <div className="md:hidden bg-background/95 border-t border-border shadow-sm">
+      {/* Mobile Menu with smooth animation */}
+      <div className={`md:hidden overflow-hidden transition-[max-height,opacity,transform] duration-300 ease-in-out ${open ? 'max-h-[480px] opacity-100 translate-y-0' : 'max-h-0 opacity-0 -translate-y-2'}`} aria-hidden={!open}>
+        <div className="bg-background/95 border-t border-border shadow-sm">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-4">
             <div className="flex flex-col space-y-4">
               <div className="flex flex-col space-y-2">
                 <Link to="/" className="block text-base font-medium text-foreground" onClick={() => setOpen(false)}>Home</Link>
                 <Link to="/grades" className="block text-base font-medium text-foreground" onClick={() => setOpen(false)}>Grades</Link>
-                <Link to="/subjects" className="block text-base font-medium text-foreground" onClick={() => setOpen(false)}>Subjects</Link>
+                <Link to="/subjects" className="block text-base font-medium text-foreground" onClick={() => setOpen(false)}>Learning Center</Link>
                 <Link to="/about" className="block text-base font-medium text-foreground" onClick={() => setOpen(false)}>About</Link>
               </div>
 
@@ -121,7 +121,7 @@ export const Navbar = () => {
             </div>
           </div>
         </div>
-      )}
+      </div>
     </nav>
   );
 };

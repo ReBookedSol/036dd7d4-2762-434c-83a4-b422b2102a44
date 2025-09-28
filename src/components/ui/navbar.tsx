@@ -104,7 +104,7 @@ export const Navbar = () => {
                       </Link>
                     )}
                     <Link to="/profile" onClick={() => setOpen(false)}>
-                      <Button variant="outline" className="w-full py-3">Profile</Button>
+                      <Button variant="outline" className="w-full py-2">Profile</Button>
                     </Link>
                     <Button variant="ghost" className="w-full py-3" onClick={() => setOpen(false)}>Close</Button>
                   </>

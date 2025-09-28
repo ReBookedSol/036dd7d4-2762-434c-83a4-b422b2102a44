@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
-import { Facebook, Twitter, Instagram, Linkedin, Mail, Brain } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Facebook, Instagram, Linkedin, Mail, Brain, Tiktok } from "lucide-react";
 import { Link } from "react-router-dom";
 
 export const Footer = () => {

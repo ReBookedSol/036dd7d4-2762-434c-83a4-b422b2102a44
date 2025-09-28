@@ -77,51 +77,53 @@ export const Navbar = () => {
         </div>
       </div>
 
-      {/* Mobile Menu with smooth animation */}
-      <div className={`md:hidden overflow-hidden transition-[max-height,opacity,transform] duration-300 ease-in-out ${open ? 'max-h-[480px] opacity-100 translate-y-0' : 'max-h-0 opacity-0 -translate-y-2'}`} aria-hidden={!open}>
-        <div className="bg-background/95 border-t border-border shadow-sm">
-          <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-4">
-            <div className="flex flex-col space-y-4">
-              <div className="flex flex-col space-y-2">
-                <Link to="/nbt" className="block text-base font-medium text-foreground" onClick={() => setOpen(false)}>NBT</Link>
-                <Link to="/grades" className="block text-base font-medium text-foreground" onClick={() => setOpen(false)}>Grades</Link>
-                <Link to="/subjects" className="block text-base font-medium text-foreground" onClick={() => setOpen(false)}>Learning Center</Link>
-                <Link to="/about" className="block text-base font-medium text-foreground" onClick={() => setOpen(false)}>About</Link>
-              </div>
+      {/* Mobile Menu as full-screen centered overlay */}
+      {open && (
+        <div className="md:hidden fixed inset-0 z-50 flex items-center justify-center bg-black/40">
+          <div className="bg-background w-full h-full p-8 overflow-auto">
+            <div className="max-w-md mx-auto flex flex-col items-center space-y-6">
+              <Link to="/nbt" onClick={() => setOpen(false)} className="w-full">
+                <Button className="w-full text-center py-4 text-lg">NBT</Button>
+              </Link>
+              <Link to="/grades" onClick={() => setOpen(false)} className="w-full">
+                <Button className="w-full text-center py-4 text-lg">Grades</Button>
+              </Link>
+              <Link to="/subjects" onClick={() => setOpen(false)} className="w-full">
+                <Button className="w-full text-center py-4 text-lg">Learning Center</Button>
+              </Link>
+              <Link to="/about" onClick={() => setOpen(false)} className="w-full">
+                <Button className="w-full text-center py-4 text-lg">About</Button>
+              </Link>
 
-              <div className="flex flex-col sm:flex-row sm:space-x-2 space-y-2 sm:space-y-0">
+              <div className="w-full border-t border-border pt-4 space-y-4">
                 {user ? (
                   <>
                     {isAdmin && (
                       <Link to="/admin" onClick={() => setOpen(false)}>
-                        <Button variant="outline" className="w-full sm:w-auto">
-                          <Shield className="h-4 w-4 mr-2" />
-                          Admin
-                        </Button>
+                        <Button variant="outline" className="w-full py-3">Admin</Button>
                       </Link>
                     )}
                     <Link to="/profile" onClick={() => setOpen(false)}>
-                      <Button variant="outline" className="w-full sm:w-auto">
-                        <User className="h-4 w-4 mr-2" />
-                        Profile
-                      </Button>
+                      <Button variant="outline" className="w-full py-3">Profile</Button>
                     </Link>
+                    <Button variant="ghost" className="w-full py-3" onClick={() => setOpen(false)}>Close</Button>
                   </>
                 ) : (
                   <>
                     <Link to="/auth" onClick={() => setOpen(false)}>
-                      <Button variant="ghost" className="w-full sm:w-auto">Sign In</Button>
+                      <Button variant="ghost" className="w-full py-3">Sign In</Button>
                     </Link>
                     <Link to="/auth" onClick={() => setOpen(false)}>
-                      <Button className="w-full sm:w-auto">Get Started</Button>
+                      <Button className="w-full py-3">Get Started</Button>
                     </Link>
+                    <Button variant="ghost" className="w-full py-3" onClick={() => setOpen(false)}>Close</Button>
                   </>
                 )}
               </div>
             </div>
           </div>
         </div>
-      </div>
+      )}
     </nav>
   );
 };

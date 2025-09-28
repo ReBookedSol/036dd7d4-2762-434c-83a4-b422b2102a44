@@ -49,6 +49,7 @@ const App = () => (
           <Route path="/grades/:gradeId/subjects/:subjectId/papers" element={<SubjectPapers />} />
           <Route path="/study-guides" element={<StudyGuides />} />
           <Route path="/practice-tests" element={<PracticeTests />} />
+          <Route path="/forgot-password" element={<ForgotPassword />} />
           <Route path="/help-center" element={<HelpCenter />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/privacy" element={<Privacy />} />

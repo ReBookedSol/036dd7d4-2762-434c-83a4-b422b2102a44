@@ -18,6 +18,7 @@ import SubjectPapers from "./pages/SubjectPapers";
 import StudyGuides from "./pages/StudyGuides";
 import ForgotPassword from "./pages/ForgotPassword";
 import PracticeTests from "./pages/PracticeTests";
+import SubjectResources from "./pages/SubjectResources";
 import HelpCenter from "./pages/HelpCenter";
 import Contact from "./pages/Contact";
 import Privacy from "./pages/Privacy";

@@ -16,6 +16,11 @@ const SubjectResources = () => {
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
   const [previewName, setPreviewName] = useState<string | null>(null);
 
+  // Lesson modal state
+  const [lessonOpen, setLessonOpen] = useState<{ id: number; title: string } | null>(null);
+  const [lessonFiles, setLessonFiles] = useState<any[]>([]);
+  const [lessonLoading, setLessonLoading] = useState(false);
+
   useEffect(() => {
     if (!slug) return;
     const fetchFiles = async () => {

@@ -51,7 +51,7 @@ const ForgotPassword = () => {
               </div>
               <div className="flex space-x-2">
                 <Button type="submit" className="flex-1" disabled={loading}>{loading ? 'Sending...' : 'Send Reset Link'}</Button>
-                <Button variant="ghost" onClick={() => navigate('/auth')}>Cancel</Button>
+                <Button variant="ghost" onClick={() => navigate('/auth')}>Back to Login</Button>
               </div>
             </form>
           </CardContent>

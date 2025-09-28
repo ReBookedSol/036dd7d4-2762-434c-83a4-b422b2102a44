@@ -21,6 +21,8 @@ import ForgotPassword from "./pages/ForgotPassword";
 import PracticeTests from "./pages/PracticeTests";
 import SubjectResources from "./pages/SubjectResources";
 import HelpCenter from "./pages/HelpCenter";
+import NBT from "./pages/NBT";
+import Pricing from "./pages/Pricing";
 import Contact from "./pages/Contact";
 import Privacy from "./pages/Privacy";
 import Terms from "./pages/Terms";
@@ -54,6 +56,8 @@ const App = () => (
           <Route path="/forgot-password" element={<ForgotPassword />} />
           <Route path="/subjects/:slug" element={<SubjectResources />} />
           <Route path="/help-center" element={<HelpCenter />} />
+          <Route path="/nbt" element={<NBT />} />
+          <Route path="/pricing" element={<Pricing />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/privacy" element={<Privacy />} />
           <Route path="/terms" element={<Terms />} />

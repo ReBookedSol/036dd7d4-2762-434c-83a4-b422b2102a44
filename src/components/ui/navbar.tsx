@@ -18,14 +18,14 @@ export const Navbar = () => {
               <Brain className="h-5 w-5" />
             </div>
             <div>
-              <h1 className="text-lg font-bold text-foreground">ReBooked Genius</h1>
+              <h1 className="text-lg font-bold text-foreground">ReBooked ZA</h1>
               <p className="text-xs text-muted-foreground">Past Papers & Study Resources</p>
             </div>
           </Link>
 
           {/* Desktop Navigation Links */}
           <div className="hidden md:flex items-center space-x-8">
-            <Link to="/" className="text-sm font-medium text-foreground hover:text-primary transition-colors">Home</Link>
+            <Link to="/nbt" className="text-sm font-medium text-foreground hover:text-primary transition-colors">NBT</Link>
             <Link to="/grades" className="text-sm font-medium text-foreground hover:text-primary transition-colors">Grades</Link>
             <Link to="/subjects" className="text-sm font-medium text-foreground hover:text-primary transition-colors">Learning Center</Link>
             <Link to="/about" className="text-sm font-medium text-foreground hover:text-primary transition-colors">About</Link>
@@ -83,7 +83,7 @@ export const Navbar = () => {
           <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-4">
             <div className="flex flex-col space-y-4">
               <div className="flex flex-col space-y-2">
-                <Link to="/" className="block text-base font-medium text-foreground" onClick={() => setOpen(false)}>Home</Link>
+                <Link to="/nbt" className="block text-base font-medium text-foreground" onClick={() => setOpen(false)}>NBT</Link>
                 <Link to="/grades" className="block text-base font-medium text-foreground" onClick={() => setOpen(false)}>Grades</Link>
                 <Link to="/subjects" className="block text-base font-medium text-foreground" onClick={() => setOpen(false)}>Learning Center</Link>
                 <Link to="/about" className="block text-base font-medium text-foreground" onClick={() => setOpen(false)}>About</Link>

@@ -132,9 +132,6 @@ const GradeSubjects = () => {
                   <Badge variant="secondary">{subject.code}</Badge>
                 </div>
                 <CardTitle className="text-lg">{subject.name}</CardTitle>
-                <CardDescription>
-                  {subject.paperCount} papers available
-                </CardDescription>
               </CardHeader>
               <CardContent>
                 <Link to={`/grades/${gradeId}/subjects/${subject.id}/papers`}>

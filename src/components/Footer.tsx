@@ -14,7 +14,7 @@ export const Footer = () => {
                 <Brain className="h-5 w-5" />
               </div>
               <div>
-                <h3 className="font-bold text-background">Rebook Genius</h3>
+                <h3 className="font-bold text-background">ReBooked ZA</h3>
                 <p className="text-xs text-background/80">Past Papers & Study Resources</p>
               </div>
             </div>
@@ -44,6 +44,7 @@ export const Footer = () => {
               <li><Link to="/grades" className="text-sm text-background/80 hover:text-background transition-colors">Grades</Link></li>
               <li><Link to="/subjects" className="text-sm text-background/80 hover:text-background transition-colors">Learning Center</Link></li>
               <li><Link to="/study-guides" className="text-sm text-background/80 hover:text-background transition-colors">Study Guides</Link></li>
+              <li><Link to="/pricing" className="text-sm text-background/80 hover:text-background transition-colors">Pricing</Link></li>
               <li><Link to="/practice-tests" className="text-sm text-background/80 hover:text-background transition-colors">Practice Tests</Link></li>
             </ul>
           </div>

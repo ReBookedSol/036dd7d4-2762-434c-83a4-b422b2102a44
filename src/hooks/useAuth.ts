@@ -32,7 +32,9 @@ export const useAuth = () => {
       setSession(session);
       setUser(session?.user ?? null);
       if (session?.user) {
-        fetchProfile(session.user.id);
+        setTimeout(() => {
+          fetchProfile(session.user.id);
+        }, 0);
       } else {
         setLoading(false);
       }
@@ -69,7 +71,8 @@ export const useAuth = () => {
       }
       if (pendingProfilePromise && cachedUserId === userId) {
         const data = await pendingProfilePromise;
-        if (data) setProfile(data);
+        setProfile(data);
+        setLoading(false);
         return;
       }
 
@@ -80,7 +83,8 @@ export const useAuth = () => {
           .from("profiles")
           .select("*")
           .eq("user_id", userId)
-          .single();
+          .maybeSingle();
+        
         if (error) {
           console.error("Error fetching profile:", error);
           return null;
@@ -91,10 +95,11 @@ export const useAuth = () => {
 
       const data = await pendingProfilePromise;
       pendingProfilePromise = null;
+      setProfile(data);
       setLoading(false);
-      if (data) setProfile(data);
     } catch (error) {
-      console.error("Error fetching profile:", error);
+      console.error("Profile fetch error:", error);
+      setProfile(null);
       setLoading(false);
     }
   };

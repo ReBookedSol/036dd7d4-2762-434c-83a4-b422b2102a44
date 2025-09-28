@@ -1,5 +1,4 @@
 import { Button as UIButton } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { TrendingUp, BookOpenCheck, Calendar } from "lucide-react";
 import { Link } from "react-router-dom";
@@ -17,25 +16,15 @@ export const HeroSection = () => {
           Trusted by 50,000+ Students
         </Badge>
 
-        <h1 className="text-4xl lg:text-6xl font-bold leading-tight max-w-3xl mx-auto">
+        <h1 className="text-4xl lg:text-6xl font-bold leading-tight max-w-3xl mx-auto drop-shadow-2xl">
           <span className="text-text-hero">Master Your</span><br />
           <span className="bg-gradient-to-r from-brand-teal to-brand-teal-dark bg-clip-text text-transparent">Exams</span>
           <span className="text-text-hero"> with Past Papers</span>
         </h1>
 
-        <p className="text-lg text-text-muted max-w-2xl mx-auto mt-4">
+        <p className="text-lg text-text-muted max-w-2xl mx-auto mt-4 drop-shadow-md">
           Access thousands of high-quality past exam papers, study guides, and resources. Boost your confidence and excel in your studies with ReBooked Genius.
         </p>
-
-        <div className="flex items-center mt-6 w-full max-w-md space-x-2">
-          <Input
-            placeholder="Search by subject, grade, or year..."
-            className="flex-1"
-          />
-          <UIButton className="bg-primary hover:bg-brand-teal-dark">
-            Find Papers
-          </UIButton>
-        </div>
 
         <div className="flex gap-4 mt-6">
           <Link to="/study-guides">

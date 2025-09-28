@@ -43,9 +43,11 @@ const Chatbot = () => {
         const controller = new AbortController();
         const timeoutId = setTimeout(() => controller.abort("timeout"), 20000);
 
+        const SUPABASE_KEY = typeof import.meta !== 'undefined' ? (import.meta.env.VITE_SUPABASE_ANON_KEY as string) : undefined;
+
         const response = await fetch(`https://kwzezhgyhtysrnvldins.supabase.co/functions/v1/chatbot`, {
           method: "POST",
-          headers: { "Content-Type": "application/json" },
+          headers: { "Content-Type": "application/json", ...(SUPABASE_KEY ? { apikey: SUPABASE_KEY, Authorization: `Bearer ${SUPABASE_KEY}` } : {}) },
           body: JSON.stringify({
             messages: updatedMessages.map((msg) => ({ role: msg.role, content: msg.content })),
             stream: true,
@@ -56,7 +58,9 @@ const Chatbot = () => {
         clearTimeout(timeoutId);
 
         if (!response.ok) {
-          throw new Error("Streaming request failed");
+          const errText = await response.text().catch(() => "");
+          console.error("Streaming request failed:", errText);
+          throw new Error(errText || "Streaming request failed");
         }
 
         const reader = response.body?.getReader();
@@ -75,6 +79,9 @@ const Chatbot = () => {
           accumulatedText += chunk;
           setStreamingMessage(accumulatedText);
         }
+
+        // Normalize whitespace and trim
+        accumulatedText = accumulatedText.replace(/\s+\|?$/g, '').trim();
 
         // Add the complete message to chat history
         if (accumulatedText) {

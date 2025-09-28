@@ -16,7 +16,9 @@ import Grades from "./pages/Grades";
 import GradeSubjects from "./pages/GradeSubjects";
 import SubjectPapers from "./pages/SubjectPapers";
 import StudyGuides from "./pages/StudyGuides";
+import ForgotPassword from "./pages/ForgotPassword";
 import PracticeTests from "./pages/PracticeTests";
+import SubjectResources from "./pages/SubjectResources";
 import HelpCenter from "./pages/HelpCenter";
 import Contact from "./pages/Contact";
 import Privacy from "./pages/Privacy";
@@ -48,6 +50,8 @@ const App = () => (
           <Route path="/grades/:gradeId/subjects/:subjectId/papers" element={<SubjectPapers />} />
           <Route path="/study-guides" element={<StudyGuides />} />
           <Route path="/practice-tests" element={<PracticeTests />} />
+          <Route path="/forgot-password" element={<ForgotPassword />} />
+          <Route path="/subjects/:slug" element={<SubjectResources />} />
           <Route path="/help-center" element={<HelpCenter />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/privacy" element={<Privacy />} />

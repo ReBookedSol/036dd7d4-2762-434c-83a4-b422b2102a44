@@ -6,7 +6,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Label } from "@/components/ui/label";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useToast } from "@/components/ui/use-toast";
-import { Loader2, Eye, EyeOff } from "lucide-react";
+import { Loader2, Eye, EyeOff, Brain } from "lucide-react";
 import { useNavigate, Link } from "react-router-dom";
 import { Navbar } from "@/components/ui/navbar";
 import { Footer } from "@/components/Footer";
@@ -28,7 +28,7 @@ const Auth = () => {
     const { data } = supabase.auth.onAuthStateChange((event, session) => {
       if (event === "SIGNED_IN" && session && !navigatedRef.current) {
         navigatedRef.current = true;
-        navigate("/");
+        navigate("/profile");
       }
     });
 
@@ -37,7 +37,7 @@ const Auth = () => {
       const session = res?.data?.session ?? null;
       if (session && !navigatedRef.current) {
         navigatedRef.current = true;
-        navigate("/");
+        navigate("/profile");
       }
     });
 
@@ -90,36 +90,6 @@ const Auth = () => {
     }
   };
 
-  const handleForgotPassword = async () => {
-    if (!email) {
-      toast({
-        title: "Email required",
-        description: "Please enter your email address first.",
-        variant: "destructive",
-      });
-      return;
-    }
-
-    try {
-      const { error } = await supabase.auth.resetPasswordForEmail(email, {
-        redirectTo: `${window.location.origin}/auth`,
-      });
-
-      if (error) throw error;
-
-      toast({
-        title: "Password reset sent",
-        description: "Check your email for password reset instructions.",
-      });
-    } catch (error: any) {
-      toast({
-        title: "Error",
-        description: error.message,
-        variant: "destructive",
-      });
-    }
-  };
-
   const handleSignIn = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
@@ -137,7 +107,7 @@ const Auth = () => {
         description: "You have been signed in successfully.",
       });
 
-      // The onAuthStateChange listener will handle navigation
+      // The onAuthStateChange listener will handle navigation to profile
     } catch (error: any) {
       console.error("Sign in error:", error);
       toast({
@@ -158,7 +128,7 @@ const Auth = () => {
           <CardHeader className="text-center">
             <div className="flex items-center justify-center gap-2 mb-4">
               <div className="w-8 h-8 bg-primary text-primary-foreground rounded-md flex items-center justify-center font-bold text-sm">
-                RB
+                <Brain className="h-4 w-4" />
               </div>
               <span className="text-xl font-bold text-primary">ReBooked Genius</span>
             </div>
@@ -218,7 +188,7 @@ const Auth = () => {
                     type="button"
                     variant="link"
                     size="sm"
-                    onClick={handleForgotPassword}
+                    onClick={() => navigate('/forgot-password')}
                     className="px-0 text-sm"
                   >
                     Forgot password?

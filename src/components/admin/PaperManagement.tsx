@@ -242,6 +242,12 @@ export const PaperManagement = () => {
                       >
                         <Eye className="h-3 w-3" />
                       </Button>
+                      <Button
+                        size="sm"
+                        onClick={() => window.open(paper.file_url, '_blank', 'noopener,noreferrer')}
+                      >
+                        <Download className="h-3 w-3" />
+                      </Button>
                     </div>
                   </TableCell>
                 </TableRow>

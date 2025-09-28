@@ -80,8 +80,8 @@ export const Navbar = () => {
       {/* Mobile Menu as full-screen centered overlay */}
       {open && (
         <div className="md:hidden fixed inset-0 z-50 flex items-center justify-center bg-black/40">
-          <div className="bg-background w-full h-full p-8 overflow-auto">
-            <div className="max-w-md mx-auto flex flex-col items-center space-y-6">
+          <div className="bg-background w-full max-h-[90vh] p-6 overflow-auto rounded-lg shadow-lg">
+            <div className="max-w-md mx-auto flex flex-col items-center space-y-4">
               <Link to="/nbt" onClick={() => setOpen(false)} className="w-full">
                 <Button className="w-full text-center py-4 text-lg">NBT</Button>
               </Link>

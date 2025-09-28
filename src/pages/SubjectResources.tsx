@@ -67,6 +67,49 @@ const SubjectResources = () => {
           <p className="text-lg text-text-muted max-w-2xl mx-auto">Explore available papers and resources. Click Preview to view files or Download to save a copy.</p>
         </div>
 
+        {/* Lessons / Modules section (Duolingo-like progression) */}
+        <div className="mb-8">
+          <h2 className="text-2xl font-semibold text-center mb-4">Lessons</h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 max-w-4xl mx-auto">
+            {Array.from({ length: 6 }).map((_, i) => {
+              const lessonId = i + 1;
+              return (
+                <Card key={`lesson-${lessonId}`} className="group hover:shadow-lg transition-all p-4">
+                  <CardHeader>
+                    <CardTitle className="text-base">Lesson {lessonId}</CardTitle>
+                    <CardDescription className="text-xs text-text-muted">Core topic and practice activities</CardDescription>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="flex items-center justify-between">
+                      <div className="text-sm text-muted-foreground">Approx. 20 min</div>
+                      <Button size="sm" onClick={async () => {
+                        // open lesson modal and fetch lesson files
+                        const lessonPath = `${slug}/lessons/lesson-${lessonId}/`;
+                        setLessonLoading(true);
+                        setLessonOpen({ id: lessonId, title: `Lesson ${lessonId}` });
+                        try {
+                          const { data: lessonFiles, error } = await supabase.storage.from(BUCKET).list(lessonPath, { limit: 100 });
+                          if (error) {
+                            console.error('Error listing lesson files', error);
+                            setLessonFiles([]);
+                          } else {
+                            setLessonFiles(lessonFiles || []);
+                          }
+                        } catch (e) {
+                          console.error(e);
+                          setLessonFiles([]);
+                        } finally {
+                          setLessonLoading(false);
+                        }
+                      }}>Start Lesson</Button>
+                    </div>
+                  </CardContent>
+                </Card>
+              );
+            })}
+          </div>
+        </div>
+
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {loading && <p>Loading resources...</p>}
           {!loading && files.length === 0 && <p className="text-center text-muted-foreground">No resources found for this subject yet.</p>}

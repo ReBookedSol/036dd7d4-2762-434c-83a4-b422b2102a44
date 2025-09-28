@@ -14,7 +14,7 @@ export const Footer = () => {
                 <Brain className="h-5 w-5" />
               </div>
               <div>
-                <h3 className="font-bold text-background">ReBooked ZA</h3>
+                <h3 className="font-bold text-background">ReBooked <span className="inline-block">Genius<sup className="text-[10px] align-super ml-1">ZA</sup></span></h3>
                 <p className="text-xs text-background/80">Past Papers & Study Resources</p>
               </div>
             </div>

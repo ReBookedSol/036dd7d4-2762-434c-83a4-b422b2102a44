@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Brain, Menu, X, User, Shield } from "lucide-react";
 import { useAuth } from "@/hooks/useAuth";

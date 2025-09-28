@@ -534,14 +534,19 @@ const Profile = () => {
                         {profile.role} User
                       </p>
                     </div>
-                    <Button 
-                      variant="outline" 
-                      onClick={handleSignOut}
-                      className="flex items-center gap-2"
-                    >
-                      <LogOut className="h-4 w-4" />
-                      Sign Out
-                    </Button>
+                    <div className="flex items-center gap-2">
+                      {profile.role !== 'premium' && profile.role !== 'admin' && (
+                        <Button onClick={() => navigate('/pricing')}>Upgrade to Premium</Button>
+                      )}
+                      <Button
+                        variant="outline"
+                        onClick={handleSignOut}
+                        className="flex items-center gap-2"
+                      >
+                        <LogOut className="h-4 w-4" />
+                        Sign Out
+                      </Button>
+                    </div>
                   </div>
                 </div>
               </CardContent>

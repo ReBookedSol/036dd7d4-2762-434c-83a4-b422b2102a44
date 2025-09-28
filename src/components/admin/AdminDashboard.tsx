@@ -237,7 +237,7 @@ export const AdminDashboard = () => {
         </TabsContent>
 
         <TabsContent value="bulk-upload">
-          <BulkUpload />
+          <BulkUpload onUploadComplete={() => {}} />
         </TabsContent>
 
         <TabsContent value="learning-center">

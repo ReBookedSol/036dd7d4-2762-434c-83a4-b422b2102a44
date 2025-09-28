@@ -106,6 +106,59 @@ export type Database = {
           },
         ]
       }
+      daily_challenges: {
+        Row: {
+          active_date: string
+          correct_answer: string
+          created_at: string
+          created_by: string
+          description: string
+          grade: string
+          id: string
+          is_premium: boolean
+          points_reward: number
+          question_data: Json
+          subject_id: string
+          title: string
+        }
+        Insert: {
+          active_date: string
+          correct_answer: string
+          created_at?: string
+          created_by: string
+          description: string
+          grade: string
+          id?: string
+          is_premium?: boolean
+          points_reward?: number
+          question_data: Json
+          subject_id: string
+          title: string
+        }
+        Update: {
+          active_date?: string
+          correct_answer?: string
+          created_at?: string
+          created_by?: string
+          description?: string
+          grade?: string
+          id?: string
+          is_premium?: boolean
+          points_reward?: number
+          question_data?: Json
+          subject_id?: string
+          title?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "daily_challenges_subject_id_fkey"
+            columns: ["subject_id"]
+            isOneToOne: false
+            referencedRelation: "subjects"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       downloads: {
         Row: {
           created_at: string
@@ -139,6 +192,147 @@ export type Database = {
             isOneToOne: false
             referencedRelation: "profiles"
             referencedColumns: ["user_id"]
+          },
+        ]
+      }
+      learning_modules: {
+        Row: {
+          created_at: string
+          description: string | null
+          grade: string
+          id: string
+          is_premium: boolean
+          order_index: number
+          subject_id: string
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          description?: string | null
+          grade: string
+          id?: string
+          is_premium?: boolean
+          order_index?: number
+          subject_id: string
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          description?: string | null
+          grade?: string
+          id?: string
+          is_premium?: boolean
+          order_index?: number
+          subject_id?: string
+          title?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "learning_modules_subject_id_fkey"
+            columns: ["subject_id"]
+            isOneToOne: false
+            referencedRelation: "subjects"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      learning_resources: {
+        Row: {
+          content: string | null
+          created_at: string
+          created_by: string
+          description: string | null
+          id: string
+          is_premium: boolean
+          order_index: number
+          resource_type: string
+          resource_url: string | null
+          title: string
+          topic_id: string
+          updated_at: string
+        }
+        Insert: {
+          content?: string | null
+          created_at?: string
+          created_by: string
+          description?: string | null
+          id?: string
+          is_premium?: boolean
+          order_index?: number
+          resource_type: string
+          resource_url?: string | null
+          title: string
+          topic_id: string
+          updated_at?: string
+        }
+        Update: {
+          content?: string | null
+          created_at?: string
+          created_by?: string
+          description?: string | null
+          id?: string
+          is_premium?: boolean
+          order_index?: number
+          resource_type?: string
+          resource_url?: string | null
+          title?: string
+          topic_id?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "learning_resources_topic_id_fkey"
+            columns: ["topic_id"]
+            isOneToOne: false
+            referencedRelation: "learning_topics"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      learning_topics: {
+        Row: {
+          created_at: string
+          description: string | null
+          estimated_duration: number | null
+          id: string
+          is_premium: boolean
+          module_id: string
+          order_index: number
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          description?: string | null
+          estimated_duration?: number | null
+          id?: string
+          is_premium?: boolean
+          module_id: string
+          order_index?: number
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          description?: string | null
+          estimated_duration?: number | null
+          id?: string
+          is_premium?: boolean
+          module_id?: string
+          order_index?: number
+          title?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "learning_topics_module_id_fkey"
+            columns: ["module_id"]
+            isOneToOne: false
+            referencedRelation: "learning_modules"
+            referencedColumns: ["id"]
           },
         ]
       }
@@ -251,6 +445,92 @@ export type Database = {
             isOneToOne: false
             referencedRelation: "profiles"
             referencedColumns: ["user_id"]
+          },
+        ]
+      }
+      payment_plans: {
+        Row: {
+          active: boolean
+          billing_period: string
+          created_at: string
+          currency: string
+          description: string | null
+          features: Json | null
+          id: string
+          name: string
+          paystack_plan_code: string | null
+          price: number
+        }
+        Insert: {
+          active?: boolean
+          billing_period: string
+          created_at?: string
+          currency?: string
+          description?: string | null
+          features?: Json | null
+          id?: string
+          name: string
+          paystack_plan_code?: string | null
+          price: number
+        }
+        Update: {
+          active?: boolean
+          billing_period?: string
+          created_at?: string
+          currency?: string
+          description?: string | null
+          features?: Json | null
+          id?: string
+          name?: string
+          paystack_plan_code?: string | null
+          price?: number
+        }
+        Relationships: []
+      }
+      payment_transactions: {
+        Row: {
+          amount: number
+          created_at: string
+          currency: string
+          id: string
+          paystack_data: Json | null
+          plan_id: string
+          reference: string
+          status: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          amount: number
+          created_at?: string
+          currency?: string
+          id?: string
+          paystack_data?: Json | null
+          plan_id: string
+          reference: string
+          status?: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          amount?: number
+          created_at?: string
+          currency?: string
+          id?: string
+          paystack_data?: Json | null
+          plan_id?: string
+          reference?: string
+          status?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "payment_transactions_plan_id_fkey"
+            columns: ["plan_id"]
+            isOneToOne: false
+            referencedRelation: "payment_plans"
+            referencedColumns: ["id"]
           },
         ]
       }
@@ -640,6 +920,85 @@ export type Database = {
             isOneToOne: false
             referencedRelation: "profiles"
             referencedColumns: ["user_id"]
+          },
+        ]
+      }
+      user_challenge_attempts: {
+        Row: {
+          answer: string
+          challenge_id: string
+          completed_at: string
+          id: string
+          is_correct: boolean
+          points_earned: number
+          user_id: string
+        }
+        Insert: {
+          answer: string
+          challenge_id: string
+          completed_at?: string
+          id?: string
+          is_correct: boolean
+          points_earned?: number
+          user_id: string
+        }
+        Update: {
+          answer?: string
+          challenge_id?: string
+          completed_at?: string
+          id?: string
+          is_correct?: boolean
+          points_earned?: number
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "user_challenge_attempts_challenge_id_fkey"
+            columns: ["challenge_id"]
+            isOneToOne: false
+            referencedRelation: "daily_challenges"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      user_progress: {
+        Row: {
+          completed: boolean
+          created_at: string
+          id: string
+          last_accessed: string
+          progress_percentage: number
+          resource_id: string
+          time_spent: number
+          user_id: string
+        }
+        Insert: {
+          completed?: boolean
+          created_at?: string
+          id?: string
+          last_accessed?: string
+          progress_percentage?: number
+          resource_id: string
+          time_spent?: number
+          user_id: string
+        }
+        Update: {
+          completed?: boolean
+          created_at?: string
+          id?: string
+          last_accessed?: string
+          progress_percentage?: number
+          resource_id?: string
+          time_spent?: number
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "user_progress_resource_id_fkey"
+            columns: ["resource_id"]
+            isOneToOne: false
+            referencedRelation: "learning_resources"
+            referencedColumns: ["id"]
           },
         ]
       }

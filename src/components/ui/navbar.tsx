@@ -18,7 +18,7 @@ export const Navbar = () => {
               <Brain className="h-5 w-5" />
             </div>
             <div>
-              <h1 className="text-lg font-bold text-foreground">ReBooked ZA</h1>
+              <h1 className="text-lg font-bold text-foreground">ReBooked <span className="inline-block">Genius<sup className="text-[10px] align-super ml-1">ZA</sup></span></h1>
               <p className="text-xs text-muted-foreground">Past Papers & Study Resources</p>
             </div>
           </Link>

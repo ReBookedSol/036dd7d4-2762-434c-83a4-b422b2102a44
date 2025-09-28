@@ -16,6 +16,7 @@ import Grades from "./pages/Grades";
 import GradeSubjects from "./pages/GradeSubjects";
 import SubjectPapers from "./pages/SubjectPapers";
 import StudyGuides from "./pages/StudyGuides";
+import ForgotPassword from "./pages/ForgotPassword";
 import PracticeTests from "./pages/PracticeTests";
 import HelpCenter from "./pages/HelpCenter";
 import Contact from "./pages/Contact";

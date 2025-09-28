@@ -83,7 +83,7 @@ export const Navbar = () => {
           <div className="bg-background w-full max-h-[90vh] p-6 overflow-auto rounded-lg shadow-lg">
             <div className="max-w-md mx-auto flex flex-col items-center space-y-4">
               <Link to="/nbt" onClick={() => setOpen(false)} className="w-full">
-                <Button className="w-full text-center py-4 text-lg">NBT</Button>
+                <Button className="w-full text-center py-3 text-base">NBT</Button>
               </Link>
               <Link to="/grades" onClick={() => setOpen(false)} className="w-full">
                 <Button className="w-full text-center py-4 text-lg">Grades</Button>

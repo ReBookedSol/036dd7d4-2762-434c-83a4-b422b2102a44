@@ -381,6 +381,7 @@ export type Database = {
           download_count: number
           file_size: number | null
           file_url: string
+          grade: string | null
           id: string
           paper_number: string | null
           paper_type: Database["public"]["Enums"]["paper_type"]
@@ -398,6 +399,7 @@ export type Database = {
           download_count?: number
           file_size?: number | null
           file_url: string
+          grade?: string | null
           id?: string
           paper_number?: string | null
           paper_type?: Database["public"]["Enums"]["paper_type"]
@@ -415,6 +417,7 @@ export type Database = {
           download_count?: number
           file_size?: number | null
           file_url?: string
+          grade?: string | null
           id?: string
           paper_number?: string | null
           paper_type?: Database["public"]["Enums"]["paper_type"]

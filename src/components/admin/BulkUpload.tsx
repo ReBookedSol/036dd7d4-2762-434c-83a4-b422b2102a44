@@ -99,6 +99,7 @@ export const BulkUpload = ({ onUploadComplete }: BulkUploadProps) => {
             title: uploadFile.title,
             subject_id: uploadFile.subjectId,
             year: uploadFile.year,
+            grade: uploadFile.grade,
             paper_number: uploadFile.paperNumber,
             paper_type: uploadFile.paperType,
             file_url: publicUrl,

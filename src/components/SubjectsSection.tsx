@@ -100,25 +100,32 @@ export const SubjectsSection = () => {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {subjects.map((subject, index) => {
             const IconComponent = subject.icon;
             const slug = slugify(subject.title);
             return (
-              <Link to={`/subjects/${slug}`} className="block">
-                <Card key={index} className="group hover:shadow-lg transition-all duration-200 hover:scale-[1.02] border-border/50">
-                  <CardHeader className="pb-3">
-                    <div className="flex items-center justify-between">
-                      <IconComponent className={`h-8 w-8 ${subject.color}`} />
-                      <ArrowRight className="h-4 w-4 text-muted-foreground group-hover:text-primary group-hover:translate-x-1 transition-all" />
+              <Link key={index} to={`/subjects/${slug}`} className="block">
+                <Card className="group hover:shadow-xl transition-all duration-300 hover:scale-[1.02] border-border/50 h-full">
+                  <CardHeader className="pb-4">
+                    <div className="flex items-start justify-between mb-4">
+                      <div className={`p-3 rounded-xl bg-gradient-to-br from-${subject.color.split('-')[1]}-100 to-${subject.color.split('-')[1]}-50`}>
+                        <IconComponent className={`h-8 w-8 ${subject.color}`} />
+                      </div>
+                      <ArrowRight className="h-5 w-5 text-muted-foreground group-hover:text-primary group-hover:translate-x-1 transition-all duration-300" />
                     </div>
-                    <CardTitle className="text-lg group-hover:text-primary transition-colors">
+                    <CardTitle className="text-xl group-hover:text-primary transition-colors duration-300 mb-2">
                       {subject.title}
                     </CardTitle>
-                    <CardDescription className="text-sm">
+                    <CardDescription className="text-sm leading-relaxed">
                       {subject.description}
                     </CardDescription>
                   </CardHeader>
+                  <CardContent className="pt-0">
+                    <div className="flex items-center text-sm text-muted-foreground">
+                      <span>Explore resources →</span>
+                    </div>
+                  </CardContent>
                 </Card>
               </Link>
             );

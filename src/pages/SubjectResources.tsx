@@ -68,69 +68,89 @@ const SubjectResources = () => {
           <p className="text-lg text-text-muted max-w-2xl mx-auto">Explore available papers and resources. Click Preview to view files or Download to save a copy.</p>
         </div>
 
-        {/* Lessons / Modules section (roadmap) */}
-        <div className="mb-8">
-          <h2 className="text-2xl font-semibold text-center mb-4">Lessons</h2>
-          <div className="relative max-w-5xl mx-auto">
-            <div className="absolute left-1/2 -translate-x-1/2 top-8 bottom-8 w-1 bg-muted hidden md:block" />
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              {Array.from({ length: 6 }).map((_, i) => {
-                const lessonId = i + 1;
-                return (
-                  <Link key={`lesson-${lessonId}`} to={`/subjects/${slug}/lessons/${lessonId}`} className="block">
-                    <Card className="group hover:shadow-lg transition-all p-4 relative">
-                      <CardHeader>
-                        <CardTitle className="text-base">Lesson {lessonId}</CardTitle>
-                        <CardDescription className="text-xs text-text-muted">Core topic and practice activities</CardDescription>
-                      </CardHeader>
-                      <CardContent>
-                        <div className="flex items-center justify-between">
-                          <div className="text-sm text-muted-foreground">Approx. 20 min</div>
-                          <Button size="sm" variant="secondary">Open</Button>
+        {/* Lessons / Modules section */}
+        <div className="mb-12">
+          <div className="text-center mb-8">
+            <h2 className="text-2xl font-bold mb-2">Learning Modules</h2>
+            <p className="text-muted-foreground">Structured lessons to master the fundamentals</p>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {Array.from({ length: 6 }).map((_, i) => {
+              const lessonId = i + 1;
+              const topics = [
+                "Introduction & Basics",
+                "Core Concepts", 
+                "Problem Solving",
+                "Advanced Topics",
+                "Applications",
+                "Review & Practice"
+              ];
+              return (
+                <Link key={`lesson-${lessonId}`} to={`/subjects/${slug}/lessons/${lessonId}`} className="block">
+                  <Card className="group hover:shadow-lg transition-all duration-300 hover:scale-[1.02] h-full">
+                    <CardHeader className="pb-3">
+                      <div className="flex items-center justify-between mb-3">
+                        <div className="w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center">
+                          <span className="text-primary font-bold">{lessonId}</span>
                         </div>
-                      </CardContent>
-                    </Card>
-                  </Link>
-                );
-              })}
-            </div>
+                        <span className="text-xs bg-muted px-2 py-1 rounded">~20 min</span>
+                      </div>
+                      <CardTitle className="text-lg group-hover:text-primary transition-colors">
+                        {topics[i]}
+                      </CardTitle>
+                      <CardDescription className="text-sm">
+                        Essential concepts and practical exercises
+                      </CardDescription>
+                    </CardHeader>
+                    <CardContent className="pt-0">
+                      <Button size="sm" variant="outline" className="w-full group-hover:bg-primary group-hover:text-white transition-colors">
+                        Start Learning
+                      </Button>
+                    </CardContent>
+                  </Card>
+                </Link>
+              );
+            })}
           </div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {loading && <p>Loading resources...</p>}
-          {!loading && files.length === 0 && <p className="text-center text-muted-foreground">No resources found for this subject yet.</p>}
-          {files.map((file) => (
-            <Card key={file.name} className="group hover:shadow-lg transition-all">
-              <CardHeader>
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-3">
-                    <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center">
-                      <FileText className="h-6 w-6 text-primary" />
-                    </div>
-                    <div>
-                      <CardTitle className="text-base">{file.name}</CardTitle>
-                      <CardDescription className="text-xs text-text-muted">{(file.metadata?.size ? `${Math.round(file.metadata.size / 1024)} KB` : '')}</CardDescription>
+        <div className="border-t pt-8">
+          <h3 className="text-xl font-semibold mb-6">Additional Resources</h3>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {loading && <p>Loading resources...</p>}
+            {!loading && files.length === 0 && <p className="text-center text-muted-foreground">No resources found for this subject yet.</p>}
+            {files.map((file) => (
+              <Card key={file.name} className="group hover:shadow-lg transition-all">
+                <CardHeader>
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-3">
+                      <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center">
+                        <FileText className="h-6 w-6 text-primary" />
+                      </div>
+                      <div>
+                        <CardTitle className="text-base">{file.name}</CardTitle>
+                        <CardDescription className="text-xs text-text-muted">{(file.metadata?.size ? `${Math.round(file.metadata.size / 1024)} KB` : '')}</CardDescription>
+                      </div>
                     </div>
                   </div>
-                </div>
-              </CardHeader>
-              <CardContent>
-                <div className="flex items-center gap-2">
-                  <Button variant="outline" size="sm" className="flex items-center gap-2" onClick={() => handlePreview(file)}>
-                    <Eye className="h-4 w-4" />
-                    Preview
-                  </Button>
-                  <a href={getPublicUrl(`${slug}/${file.name}`)} target="_blank" rel="noreferrer" className="inline-block">
-                    <Button size="sm" className="flex items-center gap-2">
-                      <Download className="h-4 w-4" />
-                      Download
+                </CardHeader>
+                <CardContent>
+                  <div className="flex items-center gap-2">
+                    <Button variant="outline" size="sm" className="flex items-center gap-2" onClick={() => handlePreview(file)}>
+                      <Eye className="h-4 w-4" />
+                      Preview
                     </Button>
-                  </a>
-                </div>
-              </CardContent>
-            </Card>
-          ))}
+                    <a href={getPublicUrl(`${slug}/${file.name}`)} target="_blank" rel="noreferrer" className="inline-block">
+                      <Button size="sm" className="flex items-center gap-2">
+                        <Download className="h-4 w-4" />
+                        Download
+                      </Button>
+                    </a>
+                  </div>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
         </div>
       </main>
 

@@ -7,6 +7,7 @@ import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Search, Filter, Calendar, Download, Eye, Loader2 } from "lucide-react";
 import { useToast } from "@/components/ui/use-toast";
 
@@ -16,6 +17,7 @@ interface Paper {
   year: number;
   paper_type: string;
   download_count: number;
+  file_url: string;
   subjects: {
     name: string;
   };
@@ -28,6 +30,8 @@ const BrowsePapers = () => {
   const [selectedSubject, setSelectedSubject] = useState("");
   const [selectedYear, setSelectedYear] = useState("");
   const [selectedType, setSelectedType] = useState("");
+  const [previewOpen, setPreviewOpen] = useState(false);
+  const [previewUrl, setPreviewUrl] = useState<string | null>(null);
   const { toast } = useToast();
 
   useEffect(() => {
@@ -45,6 +49,7 @@ const BrowsePapers = () => {
           year,
           paper_type,
           download_count,
+          file_url,
           subjects (
             name
           )
@@ -178,10 +183,19 @@ const BrowsePapers = () => {
                   </div>
                 </div>
                 <div className="flex gap-2">
-                  <Button variant="outline" size="sm" className="flex-1">
+                  <Button 
+                    variant="outline" 
+                    size="sm" 
+                    className="flex-1"
+                    onClick={() => { setPreviewUrl(paper.file_url); setPreviewOpen(true); }}
+                  >
                     <Eye className="h-3 w-3 mr-1" />Preview
                   </Button>
-                  <Button size="sm" className="flex-1">
+                  <Button 
+                    size="sm" 
+                    className="flex-1"
+                    onClick={() => window.open(paper.file_url, '_blank', 'noopener,noreferrer')}
+                  >
                     <Download className="h-3 w-3 mr-1" />Download
                   </Button>
                 </div>

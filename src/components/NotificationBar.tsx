@@ -56,14 +56,7 @@ export const NotificationBar = () => {
 
       if (error) {
         console.error('Error fetching notifications:', error);
-        // Fallback to mock notification for demo
-        setNotifications([{
-          id: "demo",
-          title: "Welcome!",
-          message: "Welcome to ReBooked Genius! Start exploring our vast collection of past papers.",
-          type: "info",
-          created_at: new Date().toISOString()
-        }]);
+        setNotifications([]);
         return;
       }
 

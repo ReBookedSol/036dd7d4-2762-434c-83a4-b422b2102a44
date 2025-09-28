@@ -43,11 +43,12 @@ const Chatbot = () => {
         const controller = new AbortController();
         const timeoutId = setTimeout(() => controller.abort("timeout"), 20000);
 
-        const SUPABASE_KEY = typeof import.meta !== 'undefined' ? (import.meta.env.VITE_SUPABASE_ANON_KEY as string) : undefined;
+        // Use publishable anon key for edge function calls (public)
+        const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imt3emV6aGd5aHR5c3JudmxkaW5zIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTg5NTU3OTEsImV4cCI6MjA3NDUzMTc5MX0.QpBupJYjltok96pUDE-oHsn9s8uheOZ95p0Z97CkWPw";
 
         const response = await fetch(`https://kwzezhgyhtysrnvldins.supabase.co/functions/v1/chatbot`, {
           method: "POST",
-          headers: { "Content-Type": "application/json", ...(SUPABASE_KEY ? { apikey: SUPABASE_KEY, Authorization: `Bearer ${SUPABASE_KEY}` } : {}) },
+          headers: { "Content-Type": "application/json", apikey: SUPABASE_KEY, Authorization: `Bearer ${SUPABASE_KEY}` },
           body: JSON.stringify({
             messages: updatedMessages.map((msg) => ({ role: msg.role, content: msg.content })),
             stream: true,

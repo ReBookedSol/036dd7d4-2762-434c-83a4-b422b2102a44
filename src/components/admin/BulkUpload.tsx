@@ -16,6 +16,7 @@ interface UploadFile {
   file: File;
   title: string;
   year: number;
+  grade: string;
   paperNumber: string;
   paperType: 'exam' | 'memo' | 'practice';
   subjectId: string;
@@ -42,6 +43,7 @@ export const BulkUpload = ({ onUploadComplete }: BulkUploadProps) => {
         file,
         title: file.name.replace(/\.[^/.]+$/, ""), // Remove extension
         year: new Date().getFullYear(),
+        grade: "12",
         paperNumber: "",
         paperType: 'exam' as const,
         subjectId: subjects[0]?.id || "",
@@ -157,7 +159,7 @@ export const BulkUpload = ({ onUploadComplete }: BulkUploadProps) => {
             
             {files.map((file, index) => (
               <Card key={index} className="p-4">
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-4 items-end">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-7 gap-4 items-end">
                   <div>
                     <Label>Title</Label>
                     <Input
@@ -195,6 +197,25 @@ export const BulkUpload = ({ onUploadComplete }: BulkUploadProps) => {
                       min="1990"
                       max="2030"
                     />
+                  </div>
+                  
+                  <div>
+                    <Label>Grade</Label>
+                    <Select
+                      value={file.grade}
+                      onValueChange={(value) => updateFile(index, { grade: value })}
+                    >
+                      <SelectTrigger>
+                        <SelectValue placeholder="Select grade" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="8">Grade 8</SelectItem>
+                        <SelectItem value="9">Grade 9</SelectItem>
+                        <SelectItem value="10">Grade 10</SelectItem>
+                        <SelectItem value="11">Grade 11</SelectItem>
+                        <SelectItem value="12">Grade 12</SelectItem>
+                      </SelectContent>
+                    </Select>
                   </div>
                   
                   <div>

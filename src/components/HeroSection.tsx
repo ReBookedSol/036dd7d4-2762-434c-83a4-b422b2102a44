@@ -1,7 +1,7 @@
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
+import { Button as UIButton } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { TrendingUp, BookOpenCheck, Calendar } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const HERO_IMAGE_URL = "https://images.pexels.com/photos/5905959/pexels-photo-5905959.jpeg";
 
@@ -16,34 +16,28 @@ export const HeroSection = () => {
           Trusted by 50,000+ Students
         </Badge>
 
-        <h1 className="text-4xl lg:text-6xl font-bold leading-tight max-w-3xl mx-auto">
+        <h1 className="text-4xl lg:text-6xl font-bold leading-tight max-w-3xl mx-auto drop-shadow-2xl">
           <span className="text-text-hero">Master Your</span><br />
           <span className="bg-gradient-to-r from-brand-teal to-brand-teal-dark bg-clip-text text-transparent">Exams</span>
           <span className="text-text-hero"> with Past Papers</span>
         </h1>
 
-        <p className="text-lg text-text-muted max-w-2xl mx-auto mt-4">
+        <p className="text-lg text-text-muted max-w-2xl mx-auto mt-4 drop-shadow-md">
           Access thousands of high-quality past exam papers, study guides, and resources. Boost your confidence and excel in your studies with ReBooked Genius.
         </p>
 
-        <div className="flex items-center mt-6 w-full max-w-md space-x-2">
-          <Input
-            placeholder="Search by subject, grade, or year..."
-            className="flex-1"
-          />
-          <Button className="bg-primary hover:bg-brand-teal-dark">
-            Find Papers
-          </Button>
-        </div>
-
         <div className="flex gap-4 mt-6">
-          <Button size="lg" className="bg-primary hover:bg-brand-teal-dark">
-            <BookOpenCheck className="h-4 w-4 mr-2" />
-            Start Learning
-          </Button>
-          <Button variant="outline" size="lg">
-            Browse Subjects
-          </Button>
+          <Link to="/study-guides">
+            <UIButton size="lg" className="bg-primary hover:bg-brand-teal-dark">
+              <BookOpenCheck className="h-4 w-4 mr-2" />
+              Start Learning
+            </UIButton>
+          </Link>
+          <Link to="/subjects">
+            <UIButton variant="outline" size="lg">
+              Browse Subjects
+            </UIButton>
+          </Link>
         </div>
       </div>
 
@@ -54,7 +48,7 @@ export const HeroSection = () => {
             <TrendingUp className="h-4 w-4 text-primary" />
             <div>
               <div className="font-semibold text-sm">Grade A+</div>
-              <div className="text-xs text-text-muted">Average improvement</div>
+              <div className="text-xs text-text-muted">Average improvement across active learners</div>
             </div>
           </div>
         </div>
@@ -65,8 +59,8 @@ export const HeroSection = () => {
           <div className="flex items-center space-x-2">
             <Calendar className="h-4 w-4 text-primary" />
             <div>
-              <div className="font-semibold text-sm">2024 Papers</div>
-              <div className="text-xs text-text-muted">Latest available</div>
+              <div className="font-semibold text-sm">2025 Papers</div>
+              <div className="text-xs text-text-muted">Now available — latest editions</div>
             </div>
           </div>
         </div>

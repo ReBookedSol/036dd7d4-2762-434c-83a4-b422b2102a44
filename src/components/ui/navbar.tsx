@@ -79,44 +79,49 @@ export const Navbar = () => {
 
       {/* Mobile Menu as full-screen centered overlay */}
       {open && (
-        <div className="md:hidden fixed inset-0 z-50 flex items-center justify-center bg-black/40">
-          <div className="bg-background w-full max-h-[90vh] p-6 overflow-auto rounded-lg shadow-lg">
-            <div className="max-w-md mx-auto flex flex-col items-center space-y-4">
+        <div className="md:hidden fixed inset-0 z-50 flex items-center justify-center bg-black/40 p-4">
+          <div className="bg-background w-full max-w-md max-h-[90vh] p-4 overflow-auto rounded-lg shadow-lg relative mx-2">
+            {/* Close X top-right */}
+            <button aria-label="Close menu" onClick={() => setOpen(false)} className="absolute right-3 top-3 p-2 rounded-full text-muted-foreground hover:bg-muted/10">
+              <X className="h-5 w-5" />
+            </button>
+
+            <div className="flex flex-col items-center space-y-3 mt-4">
               <Link to="/nbt" onClick={() => setOpen(false)} className="w-full">
-                <Button className="w-full text-center py-3 text-base">NBT</Button>
+                <Button className="w-full py-3 text-sm">NBT</Button>
               </Link>
               <Link to="/grades" onClick={() => setOpen(false)} className="w-full">
-                <Button className="w-full text-center py-3 text-base">Grades</Button>
+                <Button className="w-full py-3 text-sm">Grades</Button>
               </Link>
               <Link to="/subjects" onClick={() => setOpen(false)} className="w-full">
-                <Button className="w-full text-center py-3 text-base">Learning Center</Button>
+                <Button className="w-full py-3 text-sm">Learning Center</Button>
               </Link>
               <Link to="/about" onClick={() => setOpen(false)} className="w-full">
-                <Button className="w-full text-center py-3 text-base">About</Button>
+                <Button className="w-full py-3 text-sm">About</Button>
               </Link>
 
-              <div className="w-full border-t border-border pt-4 space-y-4">
+              <div className="w-full border-t border-border pt-4 space-y-3">
                 {user ? (
                   <>
                     {isAdmin && (
                       <Link to="/admin" onClick={() => setOpen(false)}>
-                        <Button variant="outline" className="w-full py-2">Admin</Button>
+                        <Button variant="outline" className="w-full py-2 text-sm">Admin</Button>
                       </Link>
                     )}
                     <Link to="/profile" onClick={() => setOpen(false)}>
-                      <Button variant="outline" className="w-full py-2">Profile</Button>
+                      <Button variant="outline" className="w-full py-2 text-sm">Profile</Button>
                     </Link>
-                    <Button variant="ghost" className="w-full py-2" onClick={() => setOpen(false)}>Close</Button>
+                    <Button variant="ghost" className="w-full py-2 text-sm" onClick={() => setOpen(false)}>Close</Button>
                   </>
                 ) : (
                   <>
                     <Link to="/auth" onClick={() => setOpen(false)}>
-                      <Button variant="ghost" className="w-full py-2">Sign In</Button>
+                      <Button variant="ghost" className="w-full py-2 text-sm">Sign In</Button>
                     </Link>
                     <Link to="/auth" onClick={() => setOpen(false)}>
-                      <Button className="w-full py-2">Get Started</Button>
+                      <Button className="w-full py-2 text-sm">Get Started</Button>
                     </Link>
-                    <Button variant="ghost" className="w-full py-2" onClick={() => setOpen(false)}>Close</Button>
+                    <Button variant="ghost" className="w-full py-2 text-sm" onClick={() => setOpen(false)}>Close</Button>
                   </>
                 )}
               </div>

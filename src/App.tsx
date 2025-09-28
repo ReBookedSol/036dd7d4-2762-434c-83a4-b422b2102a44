@@ -20,6 +20,7 @@ import StudyGuides from "./pages/StudyGuides";
 import ForgotPassword from "./pages/ForgotPassword";
 import PracticeTests from "./pages/PracticeTests";
 import SubjectResources from "./pages/SubjectResources";
+import SubjectLesson from "./pages/SubjectLesson";
 import HelpCenter from "./pages/HelpCenter";
 import NBT from "./pages/NBT";
 import Pricing from "./pages/Pricing";

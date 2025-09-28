@@ -89,7 +89,7 @@ export const Navbar = () => {
                 <Button className="w-full text-center py-3 text-base">Grades</Button>
               </Link>
               <Link to="/subjects" onClick={() => setOpen(false)} className="w-full">
-                <Button className="w-full text-center py-4 text-lg">Learning Center</Button>
+                <Button className="w-full text-center py-3 text-base">Learning Center</Button>
               </Link>
               <Link to="/about" onClick={() => setOpen(false)} className="w-full">
                 <Button className="w-full text-center py-4 text-lg">About</Button>

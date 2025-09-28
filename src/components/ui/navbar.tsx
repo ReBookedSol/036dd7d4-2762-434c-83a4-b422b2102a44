@@ -106,17 +106,17 @@ export const Navbar = () => {
                     <Link to="/profile" onClick={() => setOpen(false)}>
                       <Button variant="outline" className="w-full py-2">Profile</Button>
                     </Link>
-                    <Button variant="ghost" className="w-full py-3" onClick={() => setOpen(false)}>Close</Button>
+                    <Button variant="ghost" className="w-full py-2" onClick={() => setOpen(false)}>Close</Button>
                   </>
                 ) : (
                   <>
                     <Link to="/auth" onClick={() => setOpen(false)}>
-                      <Button variant="ghost" className="w-full py-3">Sign In</Button>
+                      <Button variant="ghost" className="w-full py-2">Sign In</Button>
                     </Link>
                     <Link to="/auth" onClick={() => setOpen(false)}>
-                      <Button className="w-full py-3">Get Started</Button>
+                      <Button className="w-full py-2">Get Started</Button>
                     </Link>
-                    <Button variant="ghost" className="w-full py-3" onClick={() => setOpen(false)}>Close</Button>
+                    <Button variant="ghost" className="w-full py-2" onClick={() => setOpen(false)}>Close</Button>
                   </>
                 )}
               </div>

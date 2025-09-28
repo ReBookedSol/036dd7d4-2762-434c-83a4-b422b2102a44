@@ -48,14 +48,37 @@ const Profile = () => {
           return;
         }
 
-        if (data) {
-          setProfile(data);
-          setFullName(data.full_name || "");
-          setGrade(data.grade || "");
-          setSchool(data.school || "");
-          // Fetch real user data
-          fetchUserData(session.user.id);
+        let profileData = data;
+        if (!profileData) {
+          const { data: created, error: createError } = await supabase
+            .from("profiles")
+            .insert({
+              user_id: session.user.id,
+              email: session.user.email,
+              role: "free",
+              full_name: fullName || null,
+              grade: null,
+              school: null
+            })
+            .select()
+            .single();
+          if (createError) {
+            console.error("Error creating profile:", createError);
+            toast({
+              title: "Error",
+              description: "Failed to initialize your profile.",
+              variant: "destructive",
+            });
+            return;
+          }
+          profileData = created;
         }
+
+        setProfile(profileData);
+        setFullName(profileData.full_name || "");
+        setGrade(profileData.grade || "");
+        setSchool(profileData.school || "");
+        fetchUserData(session.user.id);
       } catch (error) {
         console.error("Profile fetch error:", error);
       }
@@ -511,14 +534,19 @@ const Profile = () => {
                         {profile.role} User
                       </p>
                     </div>
-                    <Button 
-                      variant="outline" 
-                      onClick={handleSignOut}
-                      className="flex items-center gap-2"
-                    >
-                      <LogOut className="h-4 w-4" />
-                      Sign Out
-                    </Button>
+                    <div className="flex items-center gap-2">
+                      {profile.role !== 'premium' && profile.role !== 'admin' && (
+                        <Button onClick={() => navigate('/pricing')}>Upgrade to Premium</Button>
+                      )}
+                      <Button
+                        variant="outline"
+                        onClick={handleSignOut}
+                        className="flex items-center gap-2"
+                      >
+                        <LogOut className="h-4 w-4" />
+                        Sign Out
+                      </Button>
+                    </div>
                   </div>
                 </div>
               </CardContent>

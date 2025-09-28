@@ -281,6 +281,11 @@ const Auth = () => {
                     </Button>
                   </div>
                 </div>
+
+                <div className="text-center text-xs text-muted-foreground mb-2">
+                  By creating an account, you agree to ReBooked Genius’s <Link to="/terms" className="underline">Terms and Conditions</Link>.
+                </div>
+
                 <Button
                   type="submit"
                   className="w-full"

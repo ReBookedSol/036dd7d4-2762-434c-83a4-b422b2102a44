@@ -216,6 +216,30 @@ const BrowsePapers = () => {
         </div>
       </main>
       <Footer />
+
+      {/* Preview modal */}
+      {previewOpen && previewUrl && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4">
+          <div className="bg-background w-full max-w-4xl h-[80vh] rounded shadow-lg overflow-hidden">
+            <div className="flex items-center justify-between p-3 border-b border-border">
+              <div className="font-semibold">Preview</div>
+              <div className="flex items-center gap-2">
+                <Button variant="ghost" onClick={() => { setPreviewOpen(false); setPreviewUrl(null); }}>Close</Button>
+                <a href={previewUrl} target="_blank" rel="noreferrer">
+                  <Button size="sm">Open in new tab</Button>
+                </a>
+              </div>
+            </div>
+            <div className="h-full">
+              {previewUrl.endsWith('.pdf') ? (
+                <iframe src={previewUrl} title={'Preview'} className="w-full h-full" />
+              ) : (
+                <img src={previewUrl} alt={'Preview'} className="w-full h-full object-contain" />
+              )}
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

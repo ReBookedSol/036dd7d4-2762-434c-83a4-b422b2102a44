@@ -17,6 +17,7 @@ interface Paper {
   paper_type: string;
   download_count: number;
   created_at: string;
+  file_url: string;
   subjects: {
     name: string;
   };
@@ -41,6 +42,7 @@ export const LatestPapersSection = () => {
           paper_type,
           download_count,
           created_at,
+          file_url,
           subjects (
             name
           )
@@ -126,11 +128,11 @@ export const LatestPapersSection = () => {
                   </div>
 
                   <div className="flex gap-2 pt-2">
-                    <Button variant="outline" size="sm" className="flex-1">
+                    <Button variant="outline" size="sm" className="flex-1" onClick={() => window.open(paper.file_url, '_blank', 'noopener,noreferrer')}>
                       <Eye className="h-3 w-3 mr-1" />
                       Preview
                     </Button>
-                    <Button size="sm" className="flex-1">
+                    <Button size="sm" className="flex-1" onClick={() => window.open(paper.file_url, '_blank', 'noopener,noreferrer')}>
                       <Download className="h-3 w-3 mr-1" />
                       Download
                     </Button>

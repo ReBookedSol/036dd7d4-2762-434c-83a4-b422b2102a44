@@ -100,7 +100,7 @@ export const Navbar = () => {
                   <>
                     {isAdmin && (
                       <Link to="/admin" onClick={() => setOpen(false)}>
-                        <Button variant="outline" className="w-full py-3">Admin</Button>
+                        <Button variant="outline" className="w-full py-2">Admin</Button>
                       </Link>
                     )}
                     <Link to="/profile" onClick={() => setOpen(false)}>
